@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
+import AuthLayout from "../layout";
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -25,12 +26,9 @@ export default function LoginPage() {
       setErrorMessage("Invalid credentials. Please try again.");
     }
   };
-  
+
   return (
-    <div className='container flex h-screen w-screen flex-col items-center justify-center'>
-      <h1 className='text-2xl font-semibold'>Login to your account</h1>
-      <h3 className='text-gray-400 text-sm'>Enter your email and password to login</h3>
-      {errorMessage && <div className='text-red-500 text-sm'>{errorMessage}</div>} {/* Display error message if any */}
+    <AuthLayout title="Login to your account" subtitle="Enter your email and password to login" errorMessage={errorMessage}>
       <form onSubmit={handleSubmit}>
         <Input
           placeholder="Email"
@@ -53,6 +51,6 @@ export default function LoginPage() {
           </Link>
         </span>
       </p>
-    </div>
+    </AuthLayout>
   );
 }

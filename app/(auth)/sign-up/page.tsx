@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
+import AuthLayout from '../layout';
 
 export default function SignUpPage() {
     const [name, setName] = useState("");
@@ -27,10 +28,7 @@ export default function SignUpPage() {
     };
 
     return (
-        <div className='container flex h-screen w-screen flex-col items-center justify-center'>
-            <h1 className='text-2xl font-semibold'>Create an account</h1>
-            <h3 className='text-gray-400 text-sm'>Enter your details to create your account</h3>
-            {errorMessage && <div className='text-red-500 text-sm'>{errorMessage}</div>}
+        <AuthLayout title="Create an account" subtitle="Enter your details to create your account" errorMessage={errorMessage}>
             <form onSubmit={handleSubmit}>
                 <Input
                     placeholder="Name"
@@ -74,6 +72,6 @@ export default function SignUpPage() {
                     </Link>
                 </span>
             </p>
-        </div>
+        </AuthLayout>
     );
 }
