@@ -11,7 +11,7 @@ const navItems = [
     { href: '/people', icon: Handshake, label: 'People' },
     { href: '/notifications', icon: Bell, label: 'Notifications' },
     { href: '/profile', icon: User, label: 'Profile' },
-    { href: '/logout', icon: LogOut, label: 'Log Out' },
+    { href: '/login', icon: LogOut, label: 'Log Out' },
 ];
 
 const NavBar = () => {
