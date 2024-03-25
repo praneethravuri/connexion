@@ -12,7 +12,7 @@ export default function AuthLayout({ children, title, subtitle, errorMessage }: 
       </Head>
       <Authbar />
       <div className='container min-w-96 mx-auto px-4 sm:px-6 lg:px-8 flex h-screen w-full flex-col items-center justify-center'>
-        <h1 className='text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold'>{title}</h1>
+        <h1 className='text-2xl sm:text-lg md:text-xl lg:text-2xl font-semibold'>{title}</h1>
         <h3 className='text-xs sm:text-sm md:text-base text-gray-400'>{subtitle}</h3>
         {errorMessage && <div className='text-red-500'>{errorMessage}</div>}
         {children}

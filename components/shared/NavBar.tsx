@@ -3,7 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Home, Send, Handshake, User, Bell, LogOut } from 'lucide-react';
 import Logo from './Logo';
-import { usePathname } from "next/navigation"; // Imported for determining the active route
+import { usePathname } from "next/navigation";
 
 const navItems = [
     { href: '/homepage', icon: Home, label: 'Home' },
@@ -23,9 +23,10 @@ const NavBar = () => {
             <div className='flex space-x-4'>
                 {navItems.map(({ href, icon: Icon, label }) => {
                     const isActive = pathname === href;
+                    const isNotLogoutIcon = Icon !== LogOut;
                     return (
                         
-                        <div key={label} className={`p-2 rounded ${isActive ? 'bg-zinc-800' : ''}`} >
+                        <div key={label} className={`p-2 rounded ${isActive ? 'bg-zinc-800' : ''} ${isNotLogoutIcon ? 'max-sm:hidden' : ''}`} >
                             <Link href={href} passHref>
                                 <div className="cursor-pointer">
                                     <Icon color="#fff"/>
