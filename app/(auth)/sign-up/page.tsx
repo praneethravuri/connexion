@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import AuthLayout from '../layout';
+import { Button } from '@/components/ui/button';
 
 export default function SignUpPage() {
     const [name, setName] = useState("");
@@ -62,7 +63,8 @@ export default function SignUpPage() {
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(e.target.value)}
                 />
-                <button type='submit' className={cn(buttonVariants({ variant: "ghost" }))}>Sign Up</button>
+                {/* <button type='submit' className={cn(buttonVariants({ variant: "ghost" }))}>Sign Up</button> */}
+                <Button variant="ghost" type='submit'>Sign Up</Button>
             </form>
             <p className='text-gray-400'>
                 Already have an account?

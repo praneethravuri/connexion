@@ -3,8 +3,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils"
-import { buttonVariants } from "@/components/ui/button"
+import { Button } from '@/components/ui/button';
 import AuthLayout from "../layout";
 
 export default function LoginPage() {
@@ -41,7 +40,7 @@ export default function LoginPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type='submit' className={cn(buttonVariants({ variant: "ghost" }))}>Login</button>
+        <Button variant="ghost" type='submit'>Login</Button>
       </form>
       <p className='text-gray-400'>
         Don't have an account?
