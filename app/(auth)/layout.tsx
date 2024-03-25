@@ -3,6 +3,8 @@ import { ReactNode } from "react";
 import "../globals.css";
 import type { Metadata } from "next";
 import Authbar from "@/components/shared/Authbar";
+import Bottombar from "@/components/shared/Bottombar";
+
 
 export const metadata: Metadata = {
     title: "Login | Connexion",
@@ -15,6 +17,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
         {/* Auth-specific layout components like headers or footers */}
         <Authbar />
         {children}
+        <Bottombar />
       </div>
     );
   }
