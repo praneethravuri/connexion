@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
@@ -48,7 +47,7 @@ export default function LoginPage() {
       <p className='text-gray-400'>
         Don't have an account?
         <span className='ml-2'>
-          <Link className='text-offWhiteText' href="/sign-up" passHref>
+          <Link className='text-offWhiteText hover:underline' href="/sign-up" passHref>
             Sign Up
           </Link>
         </span>
