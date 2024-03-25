@@ -12,6 +12,8 @@ export const metadata: Metadata = {
   };
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
+
+
     return (
       <div>
         {/* Auth-specific layout components like headers or footers */}
