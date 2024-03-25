@@ -2,9 +2,8 @@
 import { ReactNode } from "react";
 import Head from "next/head";
 import Authbar from "@/components/shared/Authbar";
-import Bottombar from "@/components/shared/Bottombar";
 
-export default function AuthLayout({ children, title, subtitle, errorMessage }: { children: ReactNode, title: string, subtitle: string, errorMessage?:string }) {
+export default function AuthLayout({ children, title, subtitle, errorMessage }: { children: ReactNode, title: string, subtitle: string, errorMessage?: string }) {
   return (
     <>
       <Head>
@@ -12,13 +11,12 @@ export default function AuthLayout({ children, title, subtitle, errorMessage }: 
         <meta name="description" content={subtitle} />
       </Head>
       <Authbar />
-      <div className='container flex h-screen w-screen flex-col items-center justify-center'>
-        <h1 className='text-2xl font-semibold'>{title}</h1>
-        <h3 className='text-gray-400 text-sm'>{subtitle}</h3>
+      <div className='container min-w-96 mx-auto px-4 sm:px-6 lg:px-8 flex h-screen w-full flex-col items-center justify-center'>
+        <h1 className='text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold'>{title}</h1>
+        <h3 className='text-xs sm:text-sm md:text-base text-gray-400'>{subtitle}</h3>
         {errorMessage && <div className='text-red-500'>{errorMessage}</div>}
         {children}
       </div>
-      <Bottombar />
     </>
   );
 }
