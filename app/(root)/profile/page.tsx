@@ -1,7 +1,18 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import Bottombar from '@/components/shared/Bottombar';
-import { Switch } from "@/components/ui/switch"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+
 
 
 const Profile = () => {
@@ -30,7 +41,23 @@ const Profile = () => {
             <ProfileSection title="Profile" content={userDetails.name} />
             <ProfileSection title="Email" content={userDetails.email} />
             <ProfileSection title="Phone Number" content={userDetails.phoneNumber} />
-            <Button className='mt-5 m-2' variant="destructive">Delete Account</Button>
+            <AlertDialog>
+              <AlertDialogTrigger className='mt-5 m-2 bg-destructive text-destructive-foreground hover:bg-destructive/90 w-40 h-10 px-4 py-2 rounded-md'>Delete Account</AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This action cannot be undone. This will permanently delete your account
+                    and remove your data from our servers.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction>Continue</AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+
           </div>
         </div>
       </div>
