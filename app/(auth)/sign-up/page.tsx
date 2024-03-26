@@ -3,67 +3,109 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils"
-import { buttonVariants } from "@/components/ui/button"
-import AuthLayout from '../layout';
 import { Button } from '@/components/ui/button';
+import AuthLayout from '../layout';
 
 export default function SignUpPage() {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState('');
-    const [emailConfirm, setEmailConfirm] = useState("");
-    const [password, setPassword] = useState('');
-    const [passwordConfirm, setPasswordConfirm] = useState("");
-    const [phoneNumber, setPhoneNumber] = useState("");
-    const [errorMessage, setErrorMessage] = useState('');
     const router = useRouter();
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        emailConfirm: "",
+        password: "",
+        passwordConfirm: "",
+        phoneNumber: "",
+    });
+    const [errorMessage, setErrorMessage] = useState('');
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setErrorMessage('');
+        const { email, emailConfirm, password, passwordConfirm } = formData;
 
         if (email !== emailConfirm || password !== passwordConfirm) {
-            setErrorMessage("Incorrect details. Please try again.")
+            setErrorMessage("Emails or passwords do not match. Please try again.");
+            return;
         }
-        console.log(password);
+
+        try {
+            const response = await fetch('/api/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ formData }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to create user');
+            }
+
+            const result = await response.json();
+            console.log(result);
+
+            // Redirect to /homepage if account creation is successful
+            if (result.message === 'User Created') {
+                router.push('/homepage');
+            } else {
+                setErrorMessage('Failed to sign up. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            setErrorMessage('Failed to sign up. Please try again.');
+        }
     };
+
 
     return (
         <AuthLayout title="Create an account" subtitle="Enter your details to create your account" errorMessage={errorMessage}>
             <form onSubmit={handleSubmit}>
                 <Input
+                    name="name"
                     placeholder="Name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    value={formData.name}
+                    onChange={handleChange}
                 />
                 <Input
+                    name="email"
                     placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={formData.email}
+                    onChange={handleChange}
                 />
                 <Input
+                    name="emailConfirm"
                     placeholder="Re-enter Email"
-                    value={emailConfirm}
-                    onChange={(e) => setEmailConfirm(e.target.value)}
+                    value={formData.emailConfirm}
+                    onChange={handleChange}
                 />
                 <Input
+                    name="password"
                     placeholder="Password"
                     type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    value={formData.password}
+                    onChange={handleChange}
                 />
                 <Input
+                    name="passwordConfirm"
                     placeholder="Re-enter Password"
                     type="password"
-                    value={passwordConfirm}
-                    onChange={(e) => setPasswordConfirm(e.target.value)}
+                    value={formData.passwordConfirm}
+                    onChange={handleChange}
                 />
                 <Input
+                    name="phoneNumber"
                     placeholder="Phone Number"
-                    value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    value={formData.phoneNumber}
+                    onChange={handleChange}
                 />
-                {/* <button type='submit' className={cn(buttonVariants({ variant: "ghost" }))}>Sign Up</button> */}
                 <Button variant="ghost" type='submit'>Sign Up</Button>
             </form>
             <p className='text-gray-400'>

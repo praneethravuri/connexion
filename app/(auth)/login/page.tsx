@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -14,15 +15,33 @@ export default function LoginPage() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const prefixEmail = "1";
-    const prefixPassword = "1";
     setErrorMessage('');
 
-    if (email === prefixEmail && password === prefixPassword) {
-      router.push("/homepage");
-    }
-    else {
-      setErrorMessage("Invalid credentials. Please try again.");
+    try {
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to login');
+      }
+
+      const result = await response.json();
+      console.log(result);
+
+      if (result.message === 'Login successful') {
+        router.push("/homepage");
+      } else {
+        setErrorMessage('Invalid credentials. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      console.log(error);
+      setErrorMessage('Failed to login. Please try again.');
     }
   };
 
