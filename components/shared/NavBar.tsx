@@ -18,6 +18,7 @@ const NavBar = () => {
     const pathname = usePathname();
 
     return (
+        <>
         <div className='top-0 z-30 flex w-full items-center justify-between bg-black px-6 py-6'>
             <Logo />
             <div className='flex space-x-4'>
@@ -37,6 +38,8 @@ const NavBar = () => {
                 })}
             </div>
         </div>
+        <hr className="border-t border-zinc-800 mx-auto w-11/12" />
+        </>
     );
 }
 

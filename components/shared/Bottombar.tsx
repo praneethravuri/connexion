@@ -16,7 +16,7 @@ const Bottombar = () => {
   ];
 
   return (
-    <div className='fixed bottom-0 z-30 flex w-full items-center justify-center bg-black px-6 py-3 text-center sm:hidden'>
+    <div className='fixed bottom-0 z-30 flex w-full items-center justify-center bg-black px-6 py-3 text-center sm:hidden border-t border-zinc-800'>
       <div className='flex space-x-14'>
         {navItems.map(({ href, icon: Icon, label }) => {
           const isActive = pathname === href;
