@@ -10,6 +10,7 @@ export default function SignUpPage() {
     const router = useRouter();
     const [formData, setFormData] = useState({
         name: "",
+        userName: "",
         email: "",
         emailConfirm: "",
         password: "",
@@ -29,7 +30,7 @@ export default function SignUpPage() {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setErrorMessage('');
-        const { email, emailConfirm, password, passwordConfirm } = formData;
+        const { email, emailConfirm, password, passwordConfirm, userName } = formData;
 
         if (email !== emailConfirm || password !== passwordConfirm) {
             setErrorMessage("Emails or passwords do not match. Please try again.");
@@ -72,6 +73,12 @@ export default function SignUpPage() {
                     name="name"
                     placeholder="Name"
                     value={formData.name}
+                    onChange={handleChange}
+                />
+                <Input
+                    name="userName"
+                    placeholder="Username"
+                    value={formData.userName}
                     onChange={handleChange}
                 />
                 <Input
