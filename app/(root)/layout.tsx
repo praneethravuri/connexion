@@ -12,20 +12,9 @@ export const metadata: Metadata = {
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* NavBar at the top */}
+    <section>
       <NavBar />
-
-      {/* Flex container for sidebar + content */}
-      <div className="flex flex-1">
-        {/* LeftSideBar */}
-        <LeftSideBar />
-
-        {/* Main content area */}
-        <div className="flex-1 overflow-y-auto">
-          {children}
-        </div>
-      </div>
-    </div>
+      {children}
+    </section>
   );
 }

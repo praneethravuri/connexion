@@ -1,7 +1,7 @@
 import React from 'react';
 import { Megaphone, HandHelping, Rss, Wrench, MicVocal, BookOpen, Scale, ScrollText } from 'lucide-react';
 
-const LeftSideBar = () => {
+const LeftSideBar = ({currentPage}: {currentPage:string}) => {
 
     const resourceItems = [
         { icon: Megaphone, label: "Advertise" },
@@ -20,7 +20,8 @@ const LeftSideBar = () => {
     return (
         <section className='hidden xl:block overflow-y-auto h-screen w-1/6 border-r-2 border-zinc-900 px-4 py-8'>
             <div className="main m-3">
-                {/* Main content stuff */}
+                {/* Conditionally render content based on currentPage */}
+                <p className="text-white">{currentPage}</p>
             </div>
 
             <div className="resources  pl-4 border-t-2 border-zinc-800 m-3">
