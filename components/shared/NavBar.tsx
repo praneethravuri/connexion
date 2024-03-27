@@ -29,10 +29,7 @@ const NavBar = () => {
 
                             <div key={label} className={`p-2 rounded ${isActive ? 'bg-zinc-800' : ''} ${isNotLogoutIcon ? 'max-sm:hidden' : ''}`} >
                                 <Link href={href} passHref>
-                                    <div className="flex items-center cursor-pointer space-x-1">
-                                        <Icon color="#fff" />
-                                        <p className='text-sm max-md:hidden'>{label}</p>
-                                    </div>
+                                    <Icon color="#fff" />
                                 </Link>
                             </div>
                         );
