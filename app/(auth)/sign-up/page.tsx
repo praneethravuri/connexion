@@ -106,7 +106,7 @@ export default function SignUpPage() {
                     value={formData.phoneNumber}
                     onChange={handleChange}
                 />
-                <Button variant="ghost" type='submit'>Sign Up</Button>
+                <Button className='w-full' variant="ghost" type='submit'>Sign Up</Button>
             </form>
             <p className='text-gray-400'>
                 Already have an account?

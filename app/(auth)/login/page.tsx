@@ -59,7 +59,7 @@ export default function LoginPage() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <Button variant="ghost" type='submit'>Login</Button>
+        <Button className='w-full' variant="ghost" type='submit'>Login</Button>
       </form>
       <p className='text-gray-400'>
         Don't have an account?
