@@ -5,7 +5,7 @@ const
 Notifications = () => {
   return (
     <div className='bg-black h-screen w-full'>
-      <h1>Notification</h1>
+      <h1>Create</h1>
       <Bottombar />
     </div>
   )
