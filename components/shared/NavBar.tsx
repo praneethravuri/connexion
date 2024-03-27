@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import Link from 'next/link';
-import { Home, Send, Handshake, User, Bell, LogOut } from 'lucide-react';
+import { Home, Send, Handshake, User, BadgePlus, LogOut } from 'lucide-react';
 import Logo from './Logo';
 import { usePathname } from "next/navigation";
 
@@ -9,7 +9,7 @@ const navItems = [
     { href: '/homepage', icon: Home, label: 'Home' },
     { href: '/messages', icon: Send, label: 'Messages' },
     { href: '/people', icon: Handshake, label: 'People' },
-    { href: '/notifications', icon: Bell, label: 'Notifications' },
+    { href: '/create', icon: BadgePlus, label: 'Create' },
     { href: '/profile', icon: User, label: 'Profile' },
     { href: '/login', icon: LogOut, label: 'Log Out' },
 ];
