@@ -2,7 +2,7 @@ import React from 'react'
 
 const RightSideBar = () => {
     return (
-        <div className='w-1/6 rounded-lg m-5 bg-neutral-900 p-3 overflow-hidden h-1/2'>
+        <div className='xl:w-1/6 rounded-lg m-5 bg-neutral-900 p-3 overflow-y-auto h-1/2 hidden xl:block'>
             <p className='font-semibold text-lg'>Connexion News</p>
 
             <div className="news-list">
