@@ -27,7 +27,7 @@ const NavBar = () => {
                         const isNotLogoutIcon = Icon !== LogOut;
                         return (
 
-                            <div key={label} className={`p-2 rounded ${isActive ? 'bg-zinc-800' : ''} ${isNotLogoutIcon ? 'max-sm:hidden' : ''}`} >
+                            <div key={label} className={`p-2 rounded ${isActive ? 'bg-gray-800' : ''} ${isNotLogoutIcon ? 'max-sm:hidden' : ''}`} >
                                 <Link href={href} passHref>
                                     <Icon color="#fff" />
                                 </Link>

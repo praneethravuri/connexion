@@ -27,7 +27,7 @@ const LeftSideBar = ({currentPage}: {currentPage:string}) => {
             <div className="resources  pl-4 border-t-2 border-zinc-800 m-3">
                 <div className='space-y-2 mt-3'>
                     {resourceItems.map(({ icon: Icon, label }) => (
-                        <div key={label} className="rounded-lg p-3 flex items-center gap-xs min-w-0 shrink space-x-2 text-white hover:bg-zinc-800 cursor-pointer">
+                        <div key={label} className="rounded-lg p-3 flex items-center gap-xs min-w-0 shrink space-x-2 text-white hover:bg-gray-800 cursor-pointer">
                             <Icon className='h-5 w-5 leading-7 ' />
                             <span className='text-lg'>{label}</span>
                         </div>
@@ -38,7 +38,7 @@ const LeftSideBar = ({currentPage}: {currentPage:string}) => {
             <div className="legal  pl-4 border-t-2 border-zinc-800 m-3">
                 <div className='space-y-2 mt-3'>
                     {legalItems.map(({ icon: Icon, label }) => (
-                        <div key={label} className="rounded-lg p-3 flex items-center gap-xs min-w-0 shrink space-x-2 text-white hover:bg-zinc-800 cursor-pointer">
+                        <div key={label} className="rounded-lg p-3 flex items-center gap-xs min-w-0 shrink space-x-2 text-white hover:bg-gray-800 cursor-pointer">
                             <Icon className='h-5 w-5 leading-7 ' />
                             <span className='text-lg'>{label}</span>
                         </div>
