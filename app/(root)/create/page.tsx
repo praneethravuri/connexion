@@ -18,12 +18,16 @@ const CreatePost = () => {
     title: "",
     content: "",
     community: "Choose a community",
-    userName: "prav2510",
+    userName: "anithaJ77",
     contentType: "",
     showTextInput: true
   });
 
-  // Function to handle selection
+  const getRandomImageUrl = () => {
+    const randomNumber = Math.floor(Math.random() * 1000) + 1; // Generate a random number between 1 and 1000
+    return `https://picsum.photos/id/${randomNumber}/2000/800`;
+  };
+
   const handleSelectCommunity = (communityName: string) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -31,57 +35,69 @@ const CreatePost = () => {
     }));
   };
 
-  // Function to handle content type selection
   const handleContentTypeSelection = (type: string) => {
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      contentType: type,
-      showTextInput: type === 'text'
-    }));
+    if (type === 'image') {
+      const randomImageUrl = getRandomImageUrl();
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        contentType: type,
+        content: randomImageUrl,
+        showTextInput: false,
+      }));
+    } else if (type === 'text') {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        contentType: type,
+        showTextInput: true,
+      }));
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    // Here, you can perform any necessary actions with the updatedFormData
     console.log('FormData:', formData);
-
+  
     try {
+      const requestData = {
+        formData: {
+          ...formData,
+          contentType: formData.contentType || "text", // Include the contentType
+        },
+      };
+  
       const response = await fetch("/api/create-post", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ formData: formData })
+        body: JSON.stringify(requestData),
       });
-
+  
       if (!response.ok) {
         throw new Error('Failed to create post');
       }
-
+  
       const result = await response.json();
       console.log(result);
-
+  
       if (result.message === "Post Created") {
         setFormData({
           title: "",
           content: "",
           community: "Choose a community",
-          userName: "prav2510",
+          userName: "anithaJ77",
           contentType: "",
-          showTextInput: true
+          showTextInput: true,
         });
-      }
-      else {
+      } else {
         console.log("Error creating the post");
       }
-    }
-    catch (error) {
+    } catch (error) {
       console.error('Error: ', error);
     }
   };
 
-  
+
 
   return (
     <section className='bg-black h-screen w-full flex'>
@@ -102,7 +118,7 @@ const CreatePost = () => {
           </DropdownMenu>
         </div>
 
-        <div className="content-type-selection py-5">
+        <div className="content-type-selection py-5 space-x-5">
           <Button variant="ghost" onClick={() => handleContentTypeSelection('text')}>Text</Button>
           <Button variant="ghost" onClick={() => handleContentTypeSelection('image')}>Image</Button>
         </div>
