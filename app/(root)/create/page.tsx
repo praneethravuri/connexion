@@ -20,7 +20,9 @@ const CreatePost = () => {
     community: "Choose a community",
     userName: "anithaJ77",
     contentType: "",
-    showTextInput: true
+    showTextInput: true,
+    contentText: "Enter Text",
+    contentImageURL: "Enter Image URL"
   });
 
   const [errors, setErrors] = useState({
@@ -29,7 +31,7 @@ const CreatePost = () => {
   });
 
   const getRandomImageUrl = () => {
-    const randomNumber = Math.floor(Math.random() * 1000) + 1; // Generate a random number between 1 and 1000
+    const randomNumber = Math.floor(Math.random() * 1000) + 1;
     return `https://picsum.photos/id/${randomNumber}/2000/800`;
   };
 
@@ -83,11 +85,36 @@ const CreatePost = () => {
 
     if (!errors.communityError && !errors.titleError) {
       try {
+        // Determine the content type and update the formData accordingly
+        let updatedFormData = { ...formData };
+        if (formData.contentImageURL && !formData.contentText) {
+          // Case 1: Image URL filled, text area empty
+          updatedFormData = {
+            ...updatedFormData,
+            contentType: 'image',
+            content: formData.contentImageURL || getRandomImageUrl(),
+            contentText: ''
+          };
+        } else if (!formData.contentImageURL && formData.contentText) {
+          // Case 2: Text area filled, image URL empty
+          updatedFormData = {
+            ...updatedFormData,
+            contentType: 'text',
+            content: formData.contentText,
+            contentImageURL: ''
+          };
+        } else if (formData.contentImageURL && formData.contentText) {
+          // Case 3: Both image URL and text area filled
+          updatedFormData = {
+            ...updatedFormData,
+            contentType: 'mix',
+            content: getRandomImageUrl(),
+            contentText: formData.contentText
+          };
+        }
+
         const requestData = {
-          formData: {
-            ...formData,
-            contentType: formData.contentType || "text", // Include the contentType
-          },
+          formData: updatedFormData
         };
 
         const response = await fetch("/api/create-post", {
@@ -113,6 +140,8 @@ const CreatePost = () => {
             userName: "anithaJ77",
             contentType: "",
             showTextInput: true,
+            contentImageURL: "Enter Image URL",
+            contentText: "Enter Text"
           });
         } else {
           console.log("Error creating the post");
@@ -121,10 +150,7 @@ const CreatePost = () => {
         console.error('Error: ', error);
       }
     }
-
   };
-
-
 
   return (
     <section className='bg-black h-screen w-full flex'>
@@ -148,11 +174,6 @@ const CreatePost = () => {
           </DropdownMenu>
         </div>
 
-        <div className="content-type-selection py-5 space-x-5">
-          <Button variant="ghost" onClick={() => handleContentTypeSelection('text')}>Text</Button>
-          <Button variant="ghost" onClick={() => handleContentTypeSelection('image')}>Image</Button>
-        </div>
-
         <div className="insert-content">
           <form className='pt-5 w-full space-y-5' onSubmit={handleSubmit}>
             <div>
@@ -172,35 +193,29 @@ const CreatePost = () => {
                 <p className="text-red-500">Please enter a title.</p>
               )}
             </div>
-            {formData.showTextInput ? (
-              <div>
-                <Textarea
-                  placeholder='Enter text'
-                  rows={10}
-                  name='content'
-                  value={formData.content}
-                  onChange={(e) => setFormData((prevFormData) => ({
-                    ...prevFormData,
-                    content: e.target.value
-                  }))}
-                />
-              </div>
-            ) : (
-              <div>
-                <Input
-                  className='bg-neutral-950'
-                  type="text"
-                  id="imageURL"
-                  value={formData.content}
-                  onChange={(e) => setFormData((prevFormData) => ({
-                    ...prevFormData,
-                    content: e.target.value
-                  }))}
-                  placeholder='Image URL'
-                  name='content'
-                />
-              </div>
-            )}
+            <div className="image-url-input">
+              <Input className='bg-neutral-950'
+                type="text"
+                id="imageUrl"
+                value={formData.contentImageURL}
+                onChange={(e) => setFormData((prevFormData) => ({
+                  ...prevFormData,
+                  contentImageURL: e.target.value
+                }))}
+                placeholder='Image URL'
+              />
+            </div>
+            <div className="text-area-input">
+              <Textarea className='bg-neutral-950'
+                value={formData.contentText}
+                onChange={(e) => setFormData((prevFormData) => ({
+                  ...prevFormData,
+                  contentText: e.target.value
+                }))}
+                placeholder='Enter text content'
+              />
+            </div>
+
             <Button variant="ghost" type='submit'>Post</Button>
           </form>
         </div>
