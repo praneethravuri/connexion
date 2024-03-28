@@ -19,7 +19,8 @@ const CreatePost = () => {
     content: "",
     community: "Choose a community",
     userName: "prav2510",
-    contentType: ""
+    contentType: "",
+    showTextInput: true
   });
 
   // Function to handle selection
@@ -30,23 +31,20 @@ const CreatePost = () => {
     }));
   };
 
+  // Function to handle content type selection
+  const handleContentTypeSelection = (type: string) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      contentType: type,
+      showTextInput: type === 'text'
+    }));
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Check if the content is a link
-    const isContentLink = formData.content.startsWith('http://') || formData.content.startsWith('https://');
-
-    // Set the contentType based on the condition
-    const contentType = isContentLink ? 'image' : 'text';
-
-    // Update the formData with the contentType
-    const updatedFormData = {
-      ...formData,
-      contentType
-    };
-
     // Here, you can perform any necessary actions with the updatedFormData
-    console.log('FormData:', updatedFormData);
+    console.log('FormData:', formData);
 
     try {
       const response = await fetch("/api/create-post", {
@@ -54,7 +52,7 @@ const CreatePost = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ formData: updatedFormData })
+        body: JSON.stringify({ formData: formData })
       });
 
       if (!response.ok) {
@@ -70,7 +68,8 @@ const CreatePost = () => {
           content: "",
           community: "Choose a community",
           userName: "prav2510",
-          contentType : ""
+          contentType: "",
+          showTextInput: true
         });
       }
       else {
@@ -80,13 +79,13 @@ const CreatePost = () => {
     catch (error) {
       console.error('Error: ', error);
     }
-
   };
+
+  
 
   return (
     <section className='bg-black h-screen w-full flex'>
       <LeftSideBar currentPage='create' />
-
       <main className="main-content flex-1 overflow-y-auto px-20 pt-6 m-5 h-5/6 rounded-lg w-5/6">
         <div className='communities-drop-down'>
           <DropdownMenu>
@@ -101,6 +100,11 @@ const CreatePost = () => {
               <DropdownMenuItem className="text-left " onSelect={() => handleSelectCommunity('Boats')}>Boats</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+        </div>
+
+        <div className="content-type-selection py-5">
+          <Button variant="ghost" onClick={() => handleContentTypeSelection('text')}>Text</Button>
+          <Button variant="ghost" onClick={() => handleContentTypeSelection('image')}>Image</Button>
         </div>
 
         <div className="insert-content">
@@ -119,18 +123,35 @@ const CreatePost = () => {
                 name='title'
               />
             </div>
-            <div>
-              <Textarea
-                placeholder='Enter text'
-                rows={10}
-                name='content'
-                value={formData.content}
-                onChange={(e) => setFormData((prevFormData) => ({
-                  ...prevFormData,
-                  content: e.target.value
-                }))}
-              />
-            </div>
+            {formData.showTextInput ? (
+              <div>
+                <Textarea
+                  placeholder='Enter text'
+                  rows={10}
+                  name='content'
+                  value={formData.content}
+                  onChange={(e) => setFormData((prevFormData) => ({
+                    ...prevFormData,
+                    content: e.target.value
+                  }))}
+                />
+              </div>
+            ) : (
+              <div>
+                <Input
+                  className='bg-neutral-950'
+                  type="text"
+                  id="imageURL"
+                  value={formData.content}
+                  onChange={(e) => setFormData((prevFormData) => ({
+                    ...prevFormData,
+                    content: e.target.value
+                  }))}
+                  placeholder='Image URL'
+                  name='content'
+                />
+              </div>
+            )}
             <Button variant="ghost" type='submit'>Post</Button>
           </form>
         </div>
