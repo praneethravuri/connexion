@@ -5,6 +5,7 @@ export interface IPost {
     content: string;
     community: string;
     userName: string;
+    contentType: string;
 }
 
 export interface IPostDocument extends IPost, Document {
@@ -26,6 +27,10 @@ const postSchema = new mongoose.Schema<IPostDocument>({
         required: true
     },
     userName: {
+        type: String,
+        required: true
+    },
+    contentType : {
         type: String,
         required: true
     }

@@ -13,12 +13,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-const Creates = () => {
+const CreatePost = () => {
   const [formData, setFormData] = useState({
     title: "",
     content: "",
     community: "Choose a community",
-    userName: "prav2510"
+    userName: "prav2510",
+    contentType: ""
   });
 
   // Function to handle selection
@@ -31,8 +32,21 @@ const Creates = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Here, you can perform any necessary actions with the formData
-    console.log('FormData:', formData);
+
+    // Check if the content is a link
+    const isContentLink = formData.content.startsWith('http://') || formData.content.startsWith('https://');
+
+    // Set the contentType based on the condition
+    const contentType = isContentLink ? 'image' : 'text';
+
+    // Update the formData with the contentType
+    const updatedFormData = {
+      ...formData,
+      contentType
+    };
+
+    // Here, you can perform any necessary actions with the updatedFormData
+    console.log('FormData:', updatedFormData);
 
     try {
       const response = await fetch("/api/create-post", {
@@ -40,7 +54,7 @@ const Creates = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ formData })
+        body: JSON.stringify({ formData: updatedFormData })
       });
 
       if (!response.ok) {
@@ -55,7 +69,8 @@ const Creates = () => {
           title: "",
           content: "",
           community: "Choose a community",
-          userName: "prav2510"
+          userName: "prav2510",
+          contentType : ""
         });
       }
       else {
@@ -126,4 +141,4 @@ const Creates = () => {
   );
 };
 
-export default Creates;
+export default CreatePost;
