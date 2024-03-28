@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import LeftSideBar from '@/components/shared/LeftSideBar';
 import RightSideBar from '@/components/shared/RightSideBar';
 import { ChevronDown } from 'lucide-react';
@@ -12,6 +12,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Community, { ICommunityDocument } from '@/app/(models)/communityModel';
 
 const CreatePost = () => {
   const [formData, setFormData] = useState({
@@ -23,6 +24,23 @@ const CreatePost = () => {
     contentText: "",
     contentImageURL: ""
   });
+
+  const [communities, setCommunities] = useState<ICommunityDocument[]>([]);
+
+  useEffect(() => {
+    const fetchCommunities = async () => {
+      try {
+        const response = await fetch('/api/fetch-communities');
+        if (!response.ok) throw new Error('Network response was not ok');
+        const data: ICommunityDocument[] = await response.json();
+        setCommunities(data);
+      } catch (error) {
+        console.error("Failed to fetch posts:", error);
+      }
+    };
+
+    fetchCommunities();
+  }, []);
 
   const [errors, setErrors] = useState({
     communityError: false,
@@ -152,10 +170,15 @@ const CreatePost = () => {
               <span><ChevronDown color='#fff' /></span>
             </DropdownMenuTrigger>
             <DropdownMenuContent className='bg-neutral-900 w-full'>
-              <DropdownMenuItem className="text-left" onSelect={() => handleSelectCommunity('Cars')}>Cars</DropdownMenuItem>
-              <DropdownMenuItem className="text-left " onSelect={() => handleSelectCommunity('Bikes')}>Bikes</DropdownMenuItem>
-              <DropdownMenuItem className="text-left " onSelect={() => handleSelectCommunity('People')}>People</DropdownMenuItem>
-              <DropdownMenuItem className="text-left " onSelect={() => handleSelectCommunity('Boats')}>Boats</DropdownMenuItem>
+              {communities.map((community) => (
+                <DropdownMenuItem
+                  key={community.id}
+                  className="text-left"
+                  onSelect={() => handleSelectCommunity(community.communityName)}
+                >
+                  {community.communityName}
+                </DropdownMenuItem>
+              ))}
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
@@ -211,8 +234,8 @@ const CreatePost = () => {
               />
             </div>
             {errors.contentError && (
-            <p className="text-red-500">Please enter the image url or text.</p>
-          )}
+              <p className="text-red-500">Please enter the image url or text.</p>
+            )}
             <Button variant="ghost" type='submit'>Post</Button>
           </form>
         </div>
