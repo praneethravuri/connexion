@@ -16,7 +16,6 @@ import {
 const CreatePost = () => {
   const [formData, setFormData] = useState({
     title: "",
-    content: "",
     community: "Choose a community",
     userName: "anithaJ77",
     contentType: "",
@@ -40,24 +39,6 @@ const CreatePost = () => {
       ...prevFormData,
       community: communityName
     }));
-  };
-
-  const handleContentTypeSelection = (type: string) => {
-    if (type === 'image') {
-      const randomImageUrl = getRandomImageUrl();
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        contentType: type,
-        content: randomImageUrl,
-        showTextInput: false,
-      }));
-    } else if (type === 'text') {
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        contentType: type,
-        showTextInput: true,
-      }));
-    }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -85,30 +66,30 @@ const CreatePost = () => {
 
     if (!errors.communityError && !errors.titleError) {
       try {
-        // Determine the content type and update the formData accordingly
+
         let updatedFormData = { ...formData };
         if (formData.contentImageURL && !formData.contentText) {
           // Case 1: Image URL filled, text area empty
           updatedFormData = {
             ...updatedFormData,
             contentType: 'image',
-            content: formData.contentImageURL || getRandomImageUrl(),
-            contentText: ''
+            contentText: '',
+            contentImageURL: getRandomImageUrl()
           };
         } else if (!formData.contentImageURL && formData.contentText) {
           // Case 2: Text area filled, image URL empty
           updatedFormData = {
             ...updatedFormData,
             contentType: 'text',
-            content: formData.contentText,
-            contentImageURL: ''
+            contentImageURL: '',
+            contentText: formData.contentText
           };
         } else if (formData.contentImageURL && formData.contentText) {
           // Case 3: Both image URL and text area filled
           updatedFormData = {
             ...updatedFormData,
             contentType: 'mix',
-            content: getRandomImageUrl(),
+            contentImageURL: getRandomImageUrl(),
             contentText: formData.contentText
           };
         }
@@ -135,7 +116,6 @@ const CreatePost = () => {
         if (result.message === "Post Created") {
           setFormData({
             title: "",
-            content: "",
             community: "Choose a community",
             userName: "anithaJ77",
             contentType: "",
@@ -197,22 +177,21 @@ const CreatePost = () => {
               <Input className='bg-neutral-950'
                 type="text"
                 id="imageUrl"
-                value={formData.contentImageURL}
                 onChange={(e) => setFormData((prevFormData) => ({
                   ...prevFormData,
                   contentImageURL: e.target.value
                 }))}
-                placeholder='Image URL'
+                placeholder={formData.contentImageURL}
               />
             </div>
             <div className="text-area-input">
               <Textarea className='bg-neutral-950'
-                value={formData.contentText}
+
                 onChange={(e) => setFormData((prevFormData) => ({
                   ...prevFormData,
                   contentText: e.target.value
                 }))}
-                placeholder='Enter text content'
+                placeholder={formData.contentText}
               />
             </div>
 

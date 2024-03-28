@@ -2,7 +2,6 @@ import mongoose, { Document, Model } from 'mongoose';
 
 export interface IPost {
     title: string;
-    content: string;
     community: string;
     userName: string;
     contentType: string;
@@ -17,10 +16,6 @@ export interface IPostDocument extends IPost, Document {
 
 const postSchema = new mongoose.Schema<IPostDocument>({
     title: {
-        type: String,
-        required: true
-    },
-    content: {
         type: String,
         required: true
     },
