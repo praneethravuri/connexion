@@ -23,6 +23,11 @@ const CreatePost = () => {
     showTextInput: true
   });
 
+  const [errors, setErrors] = useState({
+    communityError: false,
+    titleError: false
+  });
+
   const getRandomImageUrl = () => {
     const randomNumber = Math.floor(Math.random() * 1000) + 1; // Generate a random number between 1 and 1000
     return `https://picsum.photos/id/${randomNumber}/2000/800`;
@@ -56,45 +61,67 @@ const CreatePost = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log('FormData:', formData);
-  
-    try {
-      const requestData = {
-        formData: {
-          ...formData,
-          contentType: formData.contentType || "text", // Include the contentType
-        },
-      };
-  
-      const response = await fetch("/api/create-post", {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestData),
-      });
-  
-      if (!response.ok) {
-        throw new Error('Failed to create post');
-      }
-  
-      const result = await response.json();
-      console.log(result);
-  
-      if (result.message === "Post Created") {
-        setFormData({
-          title: "",
-          content: "",
-          community: "Choose a community",
-          userName: "anithaJ77",
-          contentType: "",
-          showTextInput: true,
-        });
-      } else {
-        console.log("Error creating the post");
-      }
-    } catch (error) {
-      console.error('Error: ', error);
+
+    setErrors({
+      communityError: false,
+      titleError: false
+    });
+
+    if (formData.community === "Choose a community") {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        communityError: true
+      }));
     }
+
+    if (formData.title.trim() === "") {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        titleError: true
+      }));
+    }
+
+    if (!errors.communityError && !errors.titleError) {
+      try {
+        const requestData = {
+          formData: {
+            ...formData,
+            contentType: formData.contentType || "text", // Include the contentType
+          },
+        };
+
+        const response = await fetch("/api/create-post", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(requestData),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to create post');
+        }
+
+        const result = await response.json();
+        console.log(result);
+
+        if (result.message === "Post Created") {
+          setFormData({
+            title: "",
+            content: "",
+            community: "Choose a community",
+            userName: "anithaJ77",
+            contentType: "",
+            showTextInput: true,
+          });
+        } else {
+          console.log("Error creating the post");
+        }
+      } catch (error) {
+        console.error('Error: ', error);
+      }
+    }
+
   };
 
 
@@ -104,6 +131,9 @@ const CreatePost = () => {
       <LeftSideBar currentPage='create' />
       <main className="main-content flex-1 overflow-y-auto px-20 pt-6 m-5 h-5/6 rounded-lg w-5/6">
         <div className='communities-drop-down'>
+          {errors.communityError && (
+            <p className="text-red-500">Please choose a community.</p>
+          )}
           <DropdownMenu>
             <DropdownMenuTrigger className='bg-neutral-900 space-x-10 pl-2 py-3 pr-3 rounded-lg flex justify-between items-center'>
               <span>{formData.community}</span>
@@ -138,6 +168,9 @@ const CreatePost = () => {
                 placeholder='Title'
                 name='title'
               />
+              {errors.titleError && (
+                <p className="text-red-500">Please enter a title.</p>
+              )}
             </div>
             {formData.showTextInput ? (
               <div>
