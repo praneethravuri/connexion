@@ -20,13 +20,14 @@ const CreatePost = () => {
     userName: "anithaJ77",
     contentType: "",
     showTextInput: true,
-    contentText: "Enter Text",
-    contentImageURL: "Enter Image URL"
+    contentText: "",
+    contentImageURL: ""
   });
 
   const [errors, setErrors] = useState({
     communityError: false,
-    titleError: false
+    titleError: false,
+    contentError: false
   });
 
   const getRandomImageUrl = () => {
@@ -43,28 +44,33 @@ const CreatePost = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('FormData:', formData);
 
     setErrors({
       communityError: false,
-      titleError: false
+      titleError: false,
+      contentError: false
     });
 
+
+    let formIsValid = true;
+
     if (formData.community === "Choose a community") {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        communityError: true
-      }));
+      setErrors(prevErrors => ({ ...prevErrors, communityError: true }));
+      formIsValid = false;
     }
 
     if (formData.title.trim() === "") {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        titleError: true
-      }));
+      setErrors(prevErrors => ({ ...prevErrors, titleError: true }));
+      formIsValid = false;
+    }
+    console.log("content image", formData.contentImageURL.trim());
+    if (formData.contentImageURL.trim() === "" && formData.contentText.trim() === "") {
+      console.log("Empty!!!!");
+      setErrors(prevErrors => ({ ...prevErrors, contentError: true }));
+      formIsValid = false;
     }
 
-    if (!errors.communityError && !errors.titleError) {
+    if (formIsValid) {
       try {
 
         let updatedFormData = { ...formData };
@@ -120,8 +126,8 @@ const CreatePost = () => {
             userName: "anithaJ77",
             contentType: "",
             showTextInput: true,
-            contentImageURL: "Enter Image URL",
-            contentText: "Enter Text"
+            contentImageURL: "",
+            contentText: ""
           });
         } else {
           console.log("Error creating the post");
@@ -175,26 +181,38 @@ const CreatePost = () => {
             </div>
             <div className="image-url-input">
               <Input className='bg-neutral-950'
+                value={formData.contentImageURL}
                 type="text"
                 id="imageUrl"
                 onChange={(e) => setFormData((prevFormData) => ({
                   ...prevFormData,
                   contentImageURL: e.target.value
                 }))}
-                placeholder={formData.contentImageURL}
+                placeholder="Enter Image URL"
               />
             </div>
+
+            <div className="flex items-center justify-center gap-2">
+              <div className="flex-1 h-0.5 bg-zinc-800"></div>
+              <p className="px-2 text-zinc-800">Or</p>
+              <div className="flex-1 h-0.5 bg-zinc-800"></div>
+            </div>
+
+
             <div className="text-area-input">
               <Textarea className='bg-neutral-950'
-
+                value={formData.contentText}
+                rows={12}
                 onChange={(e) => setFormData((prevFormData) => ({
                   ...prevFormData,
                   contentText: e.target.value
                 }))}
-                placeholder={formData.contentText}
+                placeholder="Enter Text"
               />
             </div>
-
+            {errors.contentError && (
+            <p className="text-red-500">Please enter the image url or text.</p>
+          )}
             <Button variant="ghost" type='submit'>Post</Button>
           </form>
         </div>
