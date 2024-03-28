@@ -9,6 +9,8 @@ import Link from 'next/link';
 const HomePage = () => {
   const [posts, setPosts] = useState<IPostDocument[]>([]);
 
+  const user = "Anitha";
+
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -39,6 +41,7 @@ const HomePage = () => {
     <section className='bg-black h-screen w-full flex'>
       <LeftSideBar currentPage="Homepage" />
       <main className="main-content flex-1 overflow-y-auto px-20 pt-6">
+        <p className='text-3xl'>Welcome 👋, &nbsp;{user}</p>
         {posts.map(post => (
           <React.Fragment key={post.id}>
             <hr className="border-t border-zinc-800 mx-auto my-4" />
@@ -59,7 +62,7 @@ const HomePage = () => {
                 <img src={post.contentImageURL} alt={post.title} width={1000} height={400} className="max-w-full h-auto rounded-lg" />
               ) : post.contentType === "mix" ? (
                 <>
-                  
+
                   <img src={post.contentImageURL} alt={post.title} width={1000} height={400} className="max-w-full h-auto rounded-lg" />
                   <p className='mt-3'>{post.contentText}</p>
                 </>
