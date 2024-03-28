@@ -19,12 +19,8 @@ const LeftSideBar = ({currentPage}: {currentPage:string}) => {
 
     return (
         <section className='hidden xl:block overflow-y-auto h-screen w-1/6 border-r-2 border-zinc-900 px-4 py-8'>
-            <div className="main m-3">
-                {/* Conditionally render content based on currentPage */}
-                <p className="text-white">{currentPage}</p>
-            </div>
 
-            <div className="resources  pl-4 border-t-2 border-zinc-800 m-3">
+            <div className="resources  pl-4  m-3">
                 <div className='space-y-2 mt-3'>
                     {resourceItems.map(({ icon: Icon, label }) => (
                         <div key={label} className="rounded-lg p-3 flex items-center gap-xs min-w-0 shrink space-x-2 text-white hover:bg-gray-800 cursor-pointer">
