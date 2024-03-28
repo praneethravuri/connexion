@@ -173,8 +173,9 @@ const CreatePost = () => {
               {communities.map((community) => (
                 <DropdownMenuItem
                   key={community.id}
-                  className="text-left"
+                  className="text-left hover:bg-gray-400"
                   onSelect={() => handleSelectCommunity(community.communityName)}
+                  
                 >
                   {community.communityName}
                 </DropdownMenuItem>
