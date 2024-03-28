@@ -1,21 +1,20 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import LeftSideBar from '@/components/shared/LeftSideBar';
-import Bottombar from '@/components/shared/Bottombar';
 import RightSideBar from '@/components/shared/RightSideBar';
 import { ThumbsDown, ThumbsUp, MessageSquare, Share } from 'lucide-react';
 import Post, { IPostDocument } from '@/app/(models)/postModel';
 
 const HomePage = () => {
-  const [posts, setPosts] = useState<IPostDocument[]>([]); // Initialize posts state as an empty array
+  const [posts, setPosts] = useState<IPostDocument[]>([]);
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch('/api/homepage-posts'); // Adjust this URL to your actual API endpoint
+        const response = await fetch('/api/homepage-posts');
         if (!response.ok) throw new Error('Network response was not ok');
         const data: IPostDocument[] = await response.json();
-        setPosts(data); // Assuming the response JSON directly contains the array of posts
+        setPosts(data);
       } catch (error) {
         console.error("Failed to fetch posts:", error);
       }
@@ -27,9 +26,9 @@ const HomePage = () => {
   const formatDate = (dateInput: Date | string) => {
     let date: Date;
     if (typeof dateInput === 'string') {
-      date = new Date(dateInput); // Convert string to Date object
+      date = new Date(dateInput);
     } else {
-      date = dateInput; // Use the Date object as is
+      date = dateInput;
     }
     const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
     return date.toLocaleDateString('en-US', options);
@@ -55,7 +54,7 @@ const HomePage = () => {
               {post.contentType === "text" ? (
                 <p>{post.content}</p>
               ) : (
-                <img src={`${post.content}?random=${post.id}`} alt={post.title} width={1000} height={800} className="max-w-full h-auto rounded-lg" />
+                <img src={`${post.content}?random=${post.id}`} alt={post.title} width={1000} height={400} className="max-w-full h-auto rounded-lg" />
               )}
 
               {/* <div className="buttons flex space-x-4 mt-3">
@@ -89,7 +88,6 @@ const HomePage = () => {
             </article>
           </React.Fragment>
         ))}
-        <Bottombar />
       </main>
       <RightSideBar />
     </section>
