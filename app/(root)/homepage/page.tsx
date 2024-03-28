@@ -50,7 +50,8 @@ const HomePage = () => {
                 <div className='flex'>
                   <Link href='/' className="text-base text-zinc-500 hover:text-zinc-200 cursor-pointer">{post.userName}</Link>
                   <Dot />
-                  <Link href='/' className="text-base text-zinc-500 hover:text-zinc-200 cursor-pointer">{post.community}</Link>
+                  <Link href={`/community/${post.community}`} className="text-base text-zinc-500 hover:text-zinc-200 cursor-pointer">{post.community}</Link>
+
                 </div>
                 {/* <span className="text-base text-zinc-500 hover:text-zinc-200 cursor-pointer">{post.userName}</span> */}
                 <span className="text-base text-zinc-500">{formatDate(post.createdAt)}</span>
