@@ -3,6 +3,8 @@ import mongoose, { Document, Model } from 'mongoose';
 export interface ICommunity {
     communityName: string;
     communityImage: string;
+    communityBio: string;
+    communityMembers: number;
 }
 
 export interface ICommunityDocument extends ICommunity, Document {
@@ -17,6 +19,14 @@ const communitySchema = new mongoose.Schema<ICommunityDocument>({
     },
     communityImage: {
         type: String,
+        required: true
+    },
+    communityBio : {
+        type:String,
+        required:true
+    },
+    communityMembers : {
+        type: Number,
         required: true
     }
 },{
