@@ -66,7 +66,7 @@ const CommunityPage = () => {
                 <hr className="border-t border-zinc-800 mx-auto my-4" />
                 <Link href={`/community/${community.communityName}`} className="bg-black text-white p-4 rounded-lg hover:bg-gray-800 flex items-center">
                   <div className="mb-2 items-center">
-                    <div className="flex items-center ">
+                    <div className="flex items-center space-x-4">
                       <div className="w-24 h-24 overflow-hidden rounded-lg">
                         <img src={community.communityImage} alt={community.communityName} className="w-full h-full object-cover" />
                       </div>
@@ -76,6 +76,9 @@ const CommunityPage = () => {
                           <p className='text-base font-semibold text-gray-400'>{community.communityMembers}</p>
                           <Users />
                         </span>
+                      </div>
+                      <div className="community-bio">
+                        <p className='text-base text-gray-400'>{community.communityBio}</p>
                       </div>
                     </div>
                   </div>
