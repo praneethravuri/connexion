@@ -1,13 +1,31 @@
-import React from 'react';
+"use client";
+import React, { useState, useEffect } from 'react';
 import { ThumbsDown, ThumbsUp, MessageSquare, Share, Dot } from 'lucide-react';
 import { IPostDocument } from '@/app/(models)/postModel';
 import Link from 'next/link';
 
 interface UserPostsProps {
-  posts: IPostDocument[];
+  filter?: string;
 }
 
-const UserPosts: React.FC<UserPostsProps> = ({ posts }) => {
+const UserPosts: React.FC<UserPostsProps> = ({ filter = 'all' }) => {
+  const [posts, setPosts] = useState<IPostDocument[]>([]);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch(`/api/homepage-posts?filter=${filter}`);
+        if (!response.ok) throw new Error('Network response was not ok');
+        const data: IPostDocument[] = await response.json();
+        setPosts(data);
+      } catch (error) {
+        console.error("Failed to fetch posts:", error);
+      }
+    };
+
+    fetchPosts();
+  }, [filter]);
+
   const formatDate = (dateInput: Date | string) => {
     let date: Date;
     if (typeof dateInput === 'string') {

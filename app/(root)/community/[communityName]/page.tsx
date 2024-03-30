@@ -5,6 +5,7 @@ import LeftSideBar from '@/components/shared/LeftSideBar';
 import RightSideBar from '@/components/shared/RightSideBar';
 import { Users, SearchX } from 'lucide-react';
 import Bottombar from '@/components/shared/Bottombar';
+import UserPosts from '@/components/shared/UserPosts';
 
 const Community = ({ params }: { params: { communityName: string } }) => {
   const [communityData, setCommunityData] = useState<ICommunityDocument | null>(null);
@@ -35,6 +36,7 @@ const Community = ({ params }: { params: { communityName: string } }) => {
       <main className="main-content flex-1 overflow-y-auto px-20 pt-6">
         {communityData ? (
           <React.Fragment key={communityData.id} >
+            <div className='p-4'>
             <div className='community-image'>
               <img className='rounded-lg' src={communityData.communityImage} alt={communityData.communityName} width={1000} height={400} />
             </div>
@@ -50,6 +52,7 @@ const Community = ({ params }: { params: { communityName: string } }) => {
                 <p>{communityData.communityBio}</p>
               </div>
             </div>
+            </div>
           </React.Fragment>
 
         ) : (
@@ -60,6 +63,11 @@ const Community = ({ params }: { params: { communityName: string } }) => {
             </div>
           </div>
         )}
+        <div className="related-posts mt-6">
+        <h2 className='text-xl font-semibold p-4'>Related Posts</h2>
+          <UserPosts filter={params.communityName} />
+        </div>
+
       </main>
       <RightSideBar />
       <Bottombar />
