@@ -1,4 +1,4 @@
-// layout.tsx
+
 import { ReactNode } from "react";
 import Authbar from "@/components/shared/Authbar";
 
