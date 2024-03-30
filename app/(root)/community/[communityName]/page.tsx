@@ -4,6 +4,7 @@ import { ICommunityDocument } from '@/app/(models)/communityModel';
 import LeftSideBar from '@/components/shared/LeftSideBar';
 import RightSideBar from '@/components/shared/RightSideBar';
 import { Users } from 'lucide-react';
+import Bottombar from '@/components/shared/Bottombar';
 
 const Community = ({ params }: { params: { communityName: string } }) => {
   const [communityData, setCommunityData] = useState<ICommunityDocument | null>(null);
@@ -56,6 +57,7 @@ const Community = ({ params }: { params: { communityName: string } }) => {
         )}
       </main>
       <RightSideBar />
+      <Bottombar />
     </section>
   );
 };

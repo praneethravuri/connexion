@@ -1,6 +1,6 @@
 "use client";
 import React from 'react'
-import { Home, Send, Handshake, User, Bell, LogOut } from 'lucide-react';
+import { Home, Send, Handshake, User, BadgePlus } from 'lucide-react';
 import Logo from './Logo';
 import { usePathname } from "next/navigation";
 import Link from 'next/link';
@@ -10,8 +10,8 @@ const Bottombar = () => {
   const navItems = [
     { href: '/homepage', icon: Home, label: 'Home' },
     { href: '/messages', icon: Send, label: 'Messages' },
-    { href: '/people', icon: Handshake, label: 'People' },
-    { href: '/notifications', icon: Bell, label: 'Notifications' },
+    { href: '/community', icon: Handshake, label: 'Community' },
+    { href: '/create', icon: BadgePlus, label: 'Create' },
     { href: '/profile', icon: User, label: 'Profile' },
   ];
 

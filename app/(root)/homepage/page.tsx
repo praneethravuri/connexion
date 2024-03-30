@@ -5,6 +5,7 @@ import RightSideBar from '@/components/shared/RightSideBar';
 import { ThumbsDown, ThumbsUp, MessageSquare, Share, Dot } from 'lucide-react';
 import Post, { IPostDocument } from '@/app/(models)/postModel';
 import Link from 'next/link';
+import Bottombar from '@/components/shared/Bottombar';
 
 const HomePage = () => {
   const [posts, setPosts] = useState<IPostDocument[]>([]);
@@ -88,6 +89,7 @@ const HomePage = () => {
         ))}
       </main>
       <RightSideBar />
+      <Bottombar />
     </section>
   );
 }

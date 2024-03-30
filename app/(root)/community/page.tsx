@@ -5,6 +5,7 @@ import LeftSideBar from '@/components/shared/LeftSideBar';
 import RightSideBar from '@/components/shared/RightSideBar';
 import Community, { ICommunityDocument } from '@/app/(models)/communityModel';
 import Link from 'next/link';
+import Bottombar from '@/components/shared/Bottombar';
 
 
 const CommunityPage = () => {
@@ -115,6 +116,7 @@ const CommunityPage = () => {
       </main>
 
       <RightSideBar />
+      <Bottombar />
     </section>
   );
 };
