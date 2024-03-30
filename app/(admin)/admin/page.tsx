@@ -4,11 +4,11 @@ import React, { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+
+
 import Community, { ICommunityDocument } from "@/models/communityModel";
 import Post, { IPostDocument } from "@/models/postModel";
 import User, { IUserDocument } from "@/models/userModel";
@@ -151,25 +151,25 @@ const AdminPage = () => {
 
 
           <div className="data-tables p-4 m-4">
-          <div className="users-data-table">
-            <p className="text-xl font-semibold mt-5">Users Data</p>
-            <hr className="border-t border-zinc-800 mx-auto my-4" />
-            <DataTable columns={userColumns} data={users} />
-          </div>
+            <div className="users-data-table">
+              <p className="text-xl font-semibold mt-5">Users Data</p>
+              <hr className="border-t border-zinc-800 mx-auto my-4" />
+              <DataTable columns={userColumns} data={users} />
+            </div>
 
-          <div className="communities-data-table">
-          <p className="text-xl font-semibold mt-5">Communities Data</p>
-          <hr className="border-t border-zinc-800 mx-auto my-4" />
-            <DataTable columns={communitiesColumn} data={communities} />
-          </div>
+            <div className="communities-data-table">
+              <p className="text-xl font-semibold mt-5">Communities Data</p>
+              <hr className="border-t border-zinc-800 mx-auto my-4" />
+              <DataTable columns={communitiesColumn} data={communities} />
+            </div>
 
-          <div className="communities-data-table">
-          <p className="text-xl font-semibold mt-5">Communities Data</p>
-          <hr className="border-t border-zinc-800 mx-auto my-4" />
-            <DataTable columns={postsColumn} data={posts} />
+            <div className="communities-data-table">
+              <p className="text-xl font-semibold mt-5">Communities Data</p>
+              <hr className="border-t border-zinc-800 mx-auto my-4" />
+              <DataTable columns={postsColumn} data={posts} />
+            </div>
           </div>
         </div>
-          </div>
       </main>
     </section>
   );
