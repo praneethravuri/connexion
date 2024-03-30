@@ -10,7 +10,7 @@ export async function GET(req: Request) {
 
     let posts;
 
-    console.log("Community Filter: ", filter);
+    console.log("Post Filter: ", filter);
 
     if (filter === 'all' || filter === null) {
       posts = await Post.find();

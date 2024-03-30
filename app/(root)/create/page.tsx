@@ -159,7 +159,7 @@ const CreatePost = () => {
 
   return (
     <section className='bg-black h-screen w-full flex'>
-      <LeftSideBar currentPage='create' />
+      <LeftSideBar />
       <main className="main-content flex-1 overflow-y-auto px-20 pt-6 m-5 h-5/6 rounded-lg w-5/6">
         <h2 className='text-3xl font-semibold'>Create a post</h2>
         <hr className="border-t border-zinc-800 mx-auto my-4" />

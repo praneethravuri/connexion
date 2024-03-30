@@ -45,7 +45,7 @@ const CommunityPage = () => {
 
   return (
     <section className='bg-black h-screen w-full flex'>
-      <LeftSideBar currentPage='community-main' />
+      <LeftSideBar />
 
       <main className="main-content flex-1 overflow-y-auto px-20 pt-6">
         <h2 className='text-3xl font-semibold'>Communities</h2>
