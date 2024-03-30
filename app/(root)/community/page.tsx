@@ -84,9 +84,11 @@ const CommunityPage = () => {
             ))}
           </ul>
         ) : (
-          <div className="no-communities-found items-center text-center mx-auto w-full">
-            <SearchX className='mx-auto w-20 h-20' color="#fff" />
-            <p className='mx-auto text-base font-semibold'>No communities found</p>
+          <div className="no-communities-found items-center justify-center flex h-screen">
+            <div className="flex flex-col items-center justify-center">
+              <SearchX color='#fff' className='mx-auto h-20 w-20' />
+              <p className='mx-auto text-base font-semibold'>No communities found</p>
+            </div>
           </div>
         )}
       </main>
