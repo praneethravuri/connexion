@@ -2,9 +2,9 @@
 import { ReactNode } from "react";
 import "../globals.css";
 import type { Metadata } from "next";
-import NavBar from '@/components/shared/NavBar'
 import { Users, StickyNote, Handshake, Home } from 'lucide-react';
 import Link from 'next/link';
+import Authbar from "@/components/shared/Authbar";
 
 export const metadata: Metadata = {
   title: "Connexion | Admin Portal",
@@ -20,23 +20,12 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
     { icon: Handshake, label: "Communities", href: "/admin/communities" },
   ]
 
+  
+
   return (
     <section>
-      <NavBar />
-      <main className='bg-black h-screen w-full flex'>
-        {/* <div className="left-side-controls hidden xl:block overflow-y-auto h-screen w-1/6 border-r-2 border-zinc-900 px-4 py-8">
-          <div className="resources  pl-4  m-3">
-            <div className='space-y-2 mt-3'>
-              {adminControls.map(({ icon: Icon, label, href }) => (
-                <Link href={href} key={label} className="rounded-lg p-3 flex items-center gap-xs min-w-0 shrink space-x-2 text-white hover:bg-gray-800 cursor-pointer">
-                  <Icon className='h-5 w-5 leading-7 ' />
-                  <span className='text-lg'>{label}</span>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div> */}
-
+      <Authbar />
+      <main className='h-screen w-full flex'>
         {children}
       </main>
     </section>

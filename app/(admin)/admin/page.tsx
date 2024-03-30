@@ -59,6 +59,8 @@ const AdminPage = () => {
     { label: "Active Users", value: Math.floor(Math.random() * users.length) + 1, icon: HeartPulse },
   ];
 
+
+
   const userColumns = [
     {
       accessorKey: "userName",
@@ -72,13 +74,60 @@ const AdminPage = () => {
       accessorKey: "name",
       header: "Name",
     },
+    {
+      accessorKey: "createdAt",
+      header: "Data Created",
+    },
+
   ];
+
+  const communitiesColumn = [
+    {
+      accessorKey: "_id",
+      header: "Community Id",
+    },
+    {
+      accessorKey: "communityName",
+      header: "Community Name",
+    },
+    {
+      accessorKey: "communityMembers",
+      header: "Members",
+    },
+    {
+      accessorKey: "createdAt",
+      header: "Data Created",
+    },
+  ]
+  const postsColumn = [
+    {
+      accessorKey: "title",
+      header: "Post Title",
+    },
+    {
+      accessorKey: "community",
+      header: "Community",
+    },
+    {
+      accessorKey: "userName",
+      header: "User",
+    },
+    {
+      accessorKey: "createdAt",
+      header: "Data Created",
+    },
+  ]
 
   console.log("Metrics: ", collectionMetrics);
 
   return (
-    <section>
-      <main className="flex justify-center mx-auto m-4 p-4">
+    <section className="mx-auto">
+      <main className="mx-auto m-4 p-4">
+
+        <div className="title m-4 p-4">
+          <p className="text-4xl font-semibold">Dashboard</p>
+        </div>
+
         <div>
           <div className="display-cards flex space-x-4 m-4 w-full p-4">
             {isLoading ? (
@@ -99,10 +148,28 @@ const AdminPage = () => {
               ))
             )}
           </div>
+
+
+          <div className="data-tables p-4 m-4">
           <div className="users-data-table">
+            <p className="text-xl font-semibold mt-5">Users Data</p>
+            <hr className="border-t border-zinc-800 mx-auto my-4" />
             <DataTable columns={userColumns} data={users} />
           </div>
+
+          <div className="communities-data-table">
+          <p className="text-xl font-semibold mt-5">Communities Data</p>
+          <hr className="border-t border-zinc-800 mx-auto my-4" />
+            <DataTable columns={communitiesColumn} data={communities} />
+          </div>
+
+          <div className="communities-data-table">
+          <p className="text-xl font-semibold mt-5">Communities Data</p>
+          <hr className="border-t border-zinc-800 mx-auto my-4" />
+            <DataTable columns={postsColumn} data={posts} />
+          </div>
         </div>
+          </div>
       </main>
     </section>
   );
