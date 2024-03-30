@@ -7,10 +7,10 @@ export async function POST(req: Request) {
   await connectToDB();
 
   try {
-    const { communityName, communityImage } = await req.json();
-    const userData = { communityName, communityImage };
+    const { communityName, communityImage, communityBio, communityMembers } = await req.json();
+    const communityData = { communityName, communityImage, communityBio, communityMembers };
 
-    await Community.create(userData);
+    await Community.create(communityData);
 
     return new Response(JSON.stringify({ message: "Community Created" }), { status: 201 });
   } catch (err) {

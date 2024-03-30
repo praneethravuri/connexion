@@ -227,7 +227,7 @@ const CreateContent = () => {
       <main className="main-content flex-1 overflow-y-auto px-20 pt-6 m-5 h-5/6 rounded-lg w-5/6">
         <h2 className='text-3xl font-semibold'>Create post or community</h2>
         <hr className="border-t border-zinc-800 mx-auto my-4" />
-        <Tabs defaultValue="account" className="w-[400px]">
+        <Tabs defaultValue="create-post" className="w-full">
           <TabsList>
             <TabsTrigger value="create-post">Create Post</TabsTrigger>
             <TabsTrigger value="create-community">Create Community</TabsTrigger>
