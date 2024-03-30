@@ -6,10 +6,12 @@ import RightSideBar from '@/components/shared/RightSideBar';
 import Community, { ICommunityDocument } from '@/app/(models)/communityModel';
 import Link from 'next/link';
 import Bottombar from '@/components/shared/Bottombar';
-
+import { Input } from '@/components/ui/input';
+import { SearchX, Users } from 'lucide-react';
 
 const CommunityPage = () => {
   const [communities, setCommunities] = useState<ICommunityDocument[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     const fetchCommunities = async () => {
@@ -37,82 +39,56 @@ const CommunityPage = () => {
     return date.toLocaleDateString('en-US', options);
   };
 
-  // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   console.log("here");
-
-  //   try {
-  //     const response = await fetch('/api/create-community', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({ communityName, communityImage }),
-  //     });
-  //     const data = await response.json();
-  //     console.log(data);
-
-  //     // Reset form fields or show a success message
-  //     setCommunityName('');
-  //     setCommunityImage('');
-  //     fetchCommunities(); // Fetch the updated communities after creating a new one
-  //   } catch (error) {
-  //     console.error('Error:', error);
-  //   }
-  // };
+  const filteredCommunities = communities.filter((community) =>
+    community.communityName.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <section className='bg-black h-screen w-full flex'>
       <LeftSideBar currentPage='community-main' />
 
       <main className="main-content flex-1 overflow-y-auto px-20 pt-6">
-        {/* <h1>Create a New Community</h1> */}
-
-        {/* <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor="communityName">Community Name:</label>
-            <input
-              type="text"
-              id="communityName"
-              value={communityName}
-              onChange={(e) => setCommunityName(e.target.value)}
-            />
-          </div>
-
-          <div>
-            <label htmlFor="communityImage">Community Image URL:</label>
-            <input
-              type="text"
-              id="communityImage"
-              value={communityImage}
-              onChange={(e) => setCommunityImage(e.target.value)}
-            />
-          </div>
-
-          <button type="submit">Create Community</button>
-        </form> */}
-
         <h2 className='text-3xl font-semibold'>Communities</h2>
-        <ul>
-          {communities.map((community) => (
-            <React.Fragment key={community.id}>
-              <hr className="border-t border-zinc-800 mx-auto my-4" />
-              <Link href={`/community/${community.communityName}`} className="bg-black text-white p-4 rounded-lg hover:bg-gray-800 flex items-center">
-                <div className="mb-2 items-center">
-                  <div className="flex items-center ">
-                    <div className="w-24 h-24 overflow-hidden rounded-lg">
-                      <img src={community.communityImage} alt={community.communityName} className="w-full h-full object-cover" />
-                    </div>
-                    <div className="ml-8">
-                      <p className='text-2xl font-semibold'>{community.communityName}</p>
-                      <p className='text-gray-400 font-semibold'>12,000</p>
+        <div className="my-4">
+          <Input
+            type="text"
+            placeholder="Search communities..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="bg-neutral-950"
+          />
+        </div>
+
+        {filteredCommunities.length > 0 ? (
+          <ul>
+            {filteredCommunities.map((community) => (
+              <React.Fragment key={community.id}>
+                <hr className="border-t border-zinc-800 mx-auto my-4" />
+                <Link href={`/community/${community.communityName}`} className="bg-black text-white p-4 rounded-lg hover:bg-gray-800 flex items-center">
+                  <div className="mb-2 items-center">
+                    <div className="flex items-center ">
+                      <div className="w-24 h-24 overflow-hidden rounded-lg">
+                        <img src={community.communityImage} alt={community.communityName} className="w-full h-full object-cover" />
+                      </div>
+                      <div className="ml-8">
+                        <p className='text-2xl font-semibold'>{community.communityName.charAt(0).toUpperCase() + community.communityName.slice(1)}</p>
+                        <span className='flex space-x-1'>
+                          <p className='text-base font-semibold text-gray-400'>{community.communityMembers}</p>
+                          <Users />
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </Link>
-            </React.Fragment>
-          ))}
-        </ul>
+                </Link>
+              </React.Fragment>
+            ))}
+          </ul>
+        ) : (
+          <div className="no-communities-found items-center text-center mx-auto w-full">
+            <SearchX className='mx-auto w-20 h-20' color="#fff" />
+            <p className='mx-auto text-base font-semibold'>No communities found</p>
+          </div>
+        )}
       </main>
 
       <RightSideBar />
