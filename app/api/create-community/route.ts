@@ -1,4 +1,4 @@
-import Community from "@/app/(models)/communityModel";
+import Community from "@/models/communityModel";
 import { connectToDB } from "@/lib/connectDB";
 
 export async function POST(req: Request) {

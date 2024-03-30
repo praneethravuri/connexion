@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import LeftSideBar from '@/components/shared/LeftSideBar';
 import RightSideBar from '@/components/shared/RightSideBar';
-import Community, { ICommunityDocument } from '@/app/(models)/communityModel';
+import Community, { ICommunityDocument } from '@/models/communityModel';
 import Link from 'next/link';
 import Bottombar from '@/components/shared/Bottombar';
 import { Input } from '@/components/ui/input';

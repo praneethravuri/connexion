@@ -1,4 +1,4 @@
-import Post from "@/app/(models)/postModel";
+import Post from "@/models/postModel";
 import { connectToDB } from "@/lib/connectDB";
 
 export async function GET(req: Request) {

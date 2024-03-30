@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import { ICommunityDocument } from '@/app/(models)/communityModel';
+import { ICommunityDocument } from '@/models/communityModel';
 import LeftSideBar from '@/components/shared/LeftSideBar';
 import RightSideBar from '@/components/shared/RightSideBar';
 import { Users, SearchX } from 'lucide-react';
@@ -37,21 +37,21 @@ const Community = ({ params }: { params: { communityName: string } }) => {
         {communityData ? (
           <React.Fragment key={communityData.id} >
             <div className='p-4'>
-            <div className='community-image'>
-              <img className='rounded-lg' src={communityData.communityImage} alt={communityData.communityName} width={1000} height={400} />
-            </div>
-            <div className='community-details pt-3'>
-              <div className="community-heading flex justify-between items-center">
-                <p className='text-4xl font-semibold'>{communityData.communityName.charAt(0).toUpperCase() + communityData.communityName.slice(1)}</p>
-                <span className='flex space-x-1'>
-                  <p className='text-xl font-semibold text-gray-400'>{communityData.communityMembers}</p>
-                  <Users />
-                </span>
+              <div className='community-image'>
+                <img className='rounded-lg' src={communityData.communityImage} alt={communityData.communityName} width={1000} height={400} />
               </div>
-              <div>
-                <p>{communityData.communityBio}</p>
+              <div className='community-details pt-3'>
+                <div className="community-heading flex justify-between items-center">
+                  <p className='text-4xl font-semibold'>{communityData.communityName.charAt(0).toUpperCase() + communityData.communityName.slice(1)}</p>
+                  <span className='flex space-x-1'>
+                    <p className='text-xl font-semibold text-gray-400'>{communityData.communityMembers}</p>
+                    <Users />
+                  </span>
+                </div>
+                <div>
+                  <p>{communityData.communityBio}</p>
+                </div>
               </div>
-            </div>
             </div>
           </React.Fragment>
 
@@ -64,7 +64,7 @@ const Community = ({ params }: { params: { communityName: string } }) => {
           </div>
         )}
         <div className="related-posts mt-6">
-        <h2 className='text-xl font-semibold p-4'>Related Posts</h2>
+          <h2 className='text-xl font-semibold p-4'>Related Posts</h2>
           <UserPosts filter={params.communityName} />
         </div>
 

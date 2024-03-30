@@ -12,7 +12,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import Community, { ICommunityDocument } from '@/app/(models)/communityModel';
+import Community, { ICommunityDocument } from '@/models/communityModel';
 import Bottombar from '@/components/shared/Bottombar';
 
 const CreatePost = () => {

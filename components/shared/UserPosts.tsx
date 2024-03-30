@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { ThumbsDown, ThumbsUp, MessageSquare, Share, Dot } from 'lucide-react';
-import { IPostDocument } from '@/app/(models)/postModel';
+import { IPostDocument } from '@/models/postModel';
 import Link from 'next/link';
 
 interface UserPostsProps {

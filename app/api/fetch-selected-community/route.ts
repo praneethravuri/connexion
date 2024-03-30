@@ -1,5 +1,5 @@
 // app/api/fetch-selected-community/route.ts
-import Community from "@/app/(models)/communityModel";
+import Community from "@/models/communityModel";
 import { connectToDB } from "@/lib/connectDB";
 import { NextResponse } from "next/server";
 
@@ -15,7 +15,7 @@ export async function GET(req: Request) {
     }
     console.log(communityName);
     // Find the community with the provided name
-    const community = await Community.findOne({ communityName:communityName.toLowerCase() });
+    const community = await Community.findOne({ communityName: communityName.toLowerCase() });
 
     if (!community) {
       return NextResponse.json({ message: "Community not found" }, { status: 404 });
