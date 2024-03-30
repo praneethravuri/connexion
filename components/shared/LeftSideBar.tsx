@@ -1,7 +1,7 @@
 import React from 'react';
 import { Megaphone, HandHelping, Rss, Wrench, MicVocal, BookOpen, Scale, ScrollText } from 'lucide-react';
 
-const LeftSideBar = ({currentPage}: {currentPage:string}) => {
+const LeftSideBar = () => {
 
     const resourceItems = [
         { icon: Megaphone, label: "Advertise" },
