@@ -4,7 +4,7 @@ export interface ICommunity {
     communityName: string;
     communityImage: string;
     communityBio: string;
-    communityMembers: number;
+    communityMembers?: number;
 }
 
 export interface ICommunityDocument extends ICommunity, Document {
@@ -27,7 +27,6 @@ const communitySchema = new mongoose.Schema<ICommunityDocument>({
     },
     communityMembers : {
         type: Number,
-        required: true
     }
 },{
     timestamps: true

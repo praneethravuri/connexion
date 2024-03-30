@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 import "../globals.css";
 import type { Metadata } from "next";
 import NavBar from '@/components/shared/NavBar'
+import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
   title: "Connexion",
@@ -14,6 +15,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <section>
       <NavBar />
       {children}
+      <Toaster />
     </section>
   );
 }

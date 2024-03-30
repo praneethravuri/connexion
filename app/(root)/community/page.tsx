@@ -8,6 +8,7 @@ import Link from 'next/link';
 import Bottombar from '@/components/shared/Bottombar';
 import { Input } from '@/components/ui/input';
 import { SearchX, Users } from 'lucide-react';
+import { Toaster } from "@/components/ui/toaster"
 
 const CommunityPage = () => {
   const [communities, setCommunities] = useState<ICommunityDocument[]>([]);
