@@ -61,6 +61,7 @@ const UserPosts: React.FC<UserPostsProps> = ({ posts }) => {
           </article>
         </React.Fragment>
       ))}
+      <div className='m-10'></div>
     </>
   );
 };

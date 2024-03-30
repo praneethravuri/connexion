@@ -19,7 +19,7 @@ const CreatePost = () => {
   const [formData, setFormData] = useState({
     title: "",
     community: "Choose a community",
-    userName: "anithaJ77",
+    userName: "montes",
     contentType: "",
     showTextInput: true,
     contentText: "",
@@ -142,7 +142,7 @@ const CreatePost = () => {
           setFormData({
             title: "",
             community: "Choose a community",
-            userName: "anithaJ77",
+            userName: "montes",
             contentType: "",
             showTextInput: true,
             contentImageURL: "",
