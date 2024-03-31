@@ -8,9 +8,17 @@ import Link from 'next/link';
 import Bottombar from '@/components/shared/Bottombar';
 import { Input } from '@/components/ui/input';
 import { SearchX, Users } from 'lucide-react';
-import { Toaster } from "@/components/ui/toaster"
+import { getSession } from '@/lib/actions';
+import { redirect } from 'next/navigation';
 
-const CommunityPage = () => {
+const CommunityPage = async () => {
+
+  const session = await getSession();
+
+  if(!session.isLoggedIn){
+    redirect("/");
+  }
+
   const [communities, setCommunities] = useState<ICommunityDocument[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
 

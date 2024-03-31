@@ -6,8 +6,17 @@ import RightSideBar from '@/components/shared/RightSideBar';
 import { Users, SearchX } from 'lucide-react';
 import Bottombar from '@/components/shared/Bottombar';
 import UserPosts from '@/components/shared/UserPosts';
+import { getSession } from '@/lib/actions';
+import { redirect } from 'next/navigation';
 
-const Community = ({ params }: { params: { communityName: string } }) => {
+const Community = async ({ params }: { params: { communityName: string } }) => {
+
+  const session = await getSession();
+
+  if (!session.isLoggedIn) {
+    redirect("/");
+  }
+
   const [communityData, setCommunityData] = useState<ICommunityDocument | null>(null);
 
   useEffect(() => {
@@ -32,7 +41,7 @@ const Community = ({ params }: { params: { communityName: string } }) => {
 
   return (
     <section className='bg-black h-screen w-full flex'>
-      <LeftSideBar currentPage='create' />
+      <LeftSideBar />
       <main className="main-content flex-1 overflow-y-auto px-20 pt-6">
         {communityData ? (
           <React.Fragment key={communityData.id} >
