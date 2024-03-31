@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from '@/components/ui/button';
 import AuthLayout from "../layout";
 import { login } from "@/lib/actions"
+import { redirect } from 'next/navigation';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -21,7 +22,8 @@ export default function LoginPage() {
     try {
       // Call the login function from actions.ts
       await login({ email, password });
-      router.push("/homepage");
+      // router.push("/homepage");
+      redirect("/homepage");
     } catch (error) {
       console.error('Error:', error);
       setErrorMessage('Failed to login. Please try again.');

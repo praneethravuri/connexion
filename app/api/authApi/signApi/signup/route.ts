@@ -1,4 +1,4 @@
-import User from "../../../models/userModel";
+import User from "../../../../../models/userModel";
 import { connectToDB } from "@/lib/connectDB";
 
 export async function POST(req: Request) {

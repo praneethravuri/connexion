@@ -1,5 +1,5 @@
 // app/api/login/loginHandler.ts
-import User from "../../../models/userModel";
+import User from "../../../../models/userModel";
 import { connectToDB } from "@/lib/connectDB";
 
 export async function loginHandler(email: string, password: string) {
@@ -20,16 +20,18 @@ export async function loginHandler(email: string, password: string) {
 
     // User is authenticated
     //email: user.email, userName: user.userName, phoneNumber: user.phoneNumber, createdAt: user.createdAt
-    return { message: "Login successful", userDetails: {
-      email: user.email,
-      userName: user.userName,
-      phoneNumber: user.phoneNumber,
-      createdAt: user.createdAt,
-      updatedAt: user.updatedAt,
-      name: user.name,
-      password: user.password,
-      userId: user.id
-    } };
+    return {
+      message: "Login successful", userDetails: {
+        email: user.email,
+        userName: user.userName,
+        phoneNumber: user.phoneNumber,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
+        name: user.name,
+        password: user.password,
+        userId: user.id
+      }
+    };
   } catch (err) {
     console.error(err);
     throw new Error("Error logging in");

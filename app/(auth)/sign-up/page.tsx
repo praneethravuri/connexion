@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { Input } from "@/components/ui/input";
 import { Button } from '@/components/ui/button';
 import AuthLayout from '../layout';
+import { signUp } from '@/lib/actions';
+import { redirect } from 'next/navigation';
 
 export default function SignUpPage() {
     const router = useRouter();
@@ -30,38 +32,24 @@ export default function SignUpPage() {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setErrorMessage('');
+    
         const { email, emailConfirm, password, passwordConfirm, userName } = formData;
-
+    
         if (email !== emailConfirm || password !== passwordConfirm) {
             setErrorMessage("Emails or passwords do not match. Please try again.");
             return;
         }
-
+    
         try {
-            const response = await fetch('/api/signup', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ formData }),
-            });
-
-            if (!response.ok) {
-                throw new Error('Failed to create user');
-            }
-
-            const result = await response.json();
-            console.log(result);
-
-            // Redirect to /homepage if account creation is successful
-            if (result.message === 'User Created') {
-                router.push('/homepage');
-            } else {
-                setErrorMessage('Failed to sign up. Please try again.');
-            }
+            await signUp({ email, password, userName, phoneNumber: formData.phoneNumber, name: formData.name });
+            redirect("/homepage");
         } catch (error) {
-            console.error('Error:', error);
-            setErrorMessage('Failed to sign up. Please try again.');
+            if (error.message === 'Email already exists') {
+                setErrorMessage("Email already exists. Please use a different email.");
+            } else {
+                console.log(error);
+                setErrorMessage("Failed to sign up. Please try again");
+            }
         }
     };
 
