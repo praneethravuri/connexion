@@ -18,10 +18,17 @@ import { useToast } from "@/components/ui/use-toast"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CreatePostForm from './CreatePostForm';
 import CreateCommunityForm from './CreateCommunityForm';
+import { getSession } from '@/lib/actions';
+import { redirect } from 'next/navigation';
 
 
-const CreateContent = () => {
+const CreateContent = async () => {
 
+  const session = await getSession();
+
+  if(!session.isLoggedIn){
+    redirect("/");
+  }
   
   return (
     <section className='bg-black h-screen w-full flex'>
