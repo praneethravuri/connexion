@@ -1,9 +1,10 @@
-"use client";
 import React from 'react';
 import Link from 'next/link';
 import { Home, Send, Handshake, User, BadgePlus, LogOut } from 'lucide-react';
 import Logo from './Logo';
-import { usePathname } from "next/navigation";
+// import { usePathname } from "next/navigation";
+import LogOutForm from './LogOutForm';
+import { getSession } from '@/lib/actions';
 
 const navItems = [
     { href: '/homepage', icon: Home, label: 'Home' },
@@ -13,8 +14,10 @@ const navItems = [
     { href: '/login', icon: LogOut, label: 'Log Out' },
 ];
 
-const NavBar = () => {
-    const pathname = usePathname();
+const NavBar = async () => {
+    // const pathname = usePathname();
+    const session = await getSession();
+    console.log(session);
 
     return (
         <>
@@ -22,11 +25,11 @@ const NavBar = () => {
                 <Logo />
                 <div className='flex space-x-4'>
                     {navItems.map(({ href, icon: Icon, label }) => {
-                        const isActive = pathname === href;
+                        // const isActive = pathname === href;
                         const isNotLogoutIcon = Icon !== LogOut;
                         return (
-
-                            <div key={label} className={`p-2 rounded ${isActive ? 'bg-gray-800' : ''} ${isNotLogoutIcon ? 'max-sm:hidden' : ''}`} >
+                            // className={`p-2 rounded ${isActive ? 'bg-gray-800' : ''} ${isNotLogoutIcon ? 'max-sm:hidden' : ''}`
+                            <div key={label} className='p-2 rounded-lg max-sm:hidden' >
                                 <Link href={href} passHref>
                                     <Icon color="#fff" />
                                 </Link>
@@ -34,6 +37,7 @@ const NavBar = () => {
                         );
                     })}
                 </div>
+                {session.isLoggedIn && <LogOutForm />}
             </div>
             <hr className="border-t border-zinc-800 mx-auto w-11/12" />
         </>

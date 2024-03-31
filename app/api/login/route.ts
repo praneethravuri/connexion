@@ -20,9 +20,8 @@ export async function POST(req: Request) {
       return new Response(JSON.stringify({ message: "Invalid email or password" }), { status: 401 });
     }
 
-    // User is authenticated, optionally you can generate a token or session here
-
-    return new Response(JSON.stringify({ message: "Login successful" }), { status: 200 });
+    // User is authenticated, send the email and username in the response
+    return new Response(JSON.stringify({ message: "Login successful", email: user.email, userName: user.userName }), { status: 200 });
   } catch (err) {
     console.error(err);
     return new Response(JSON.stringify({ message: "Error logging in", err }), { status: 500 });

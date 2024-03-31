@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { Input } from "@/components/ui/input";
 import { Button } from '@/components/ui/button';
 import AuthLayout from "../layout";
+import { login } from "@/lib/actions"
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -18,29 +19,11 @@ export default function LoginPage() {
     setErrorMessage('');
 
     try {
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to login');
-      }
-
-      const result = await response.json();
-      console.log(result);
-
-      if (result.message === 'Login successful') {
-        router.push("/homepage");
-      } else {
-        setErrorMessage('Invalid credentials. Please try again.');
-      }
+      // Call the login function from actions.ts
+      await login({ email, password });
+      router.push("/homepage");
     } catch (error) {
       console.error('Error:', error);
-      console.log(error);
       setErrorMessage('Failed to login. Please try again.');
     }
   };
@@ -52,12 +35,14 @@ export default function LoginPage() {
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          name='email'
         />
         <Input
           placeholder="Password"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          name='password'
         />
         <Button className='w-full' variant="ghost" type='submit'>Login</Button>
       </form>

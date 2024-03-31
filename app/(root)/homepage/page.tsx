@@ -12,7 +12,7 @@ const HomePage = () => {
       <LeftSideBar />
       <main className="main-content flex-1 overflow-y-auto px-20 pt-6">
         <p className='text-3xl'>Welcome 👋, &nbsp;{user}</p>
-        <UserPosts /> {/* Fetch all posts by default */}
+        <UserPosts />
       </main>
       <RightSideBar />
       <Bottombar />
