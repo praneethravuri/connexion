@@ -20,7 +20,6 @@ const CreatePostForm = () => {
         community: "Choose a community",
         userName: "montes",
         contentType: "",
-        showTextInput: true,
         contentText: "",
         contentImageURL: ""
     });
@@ -122,14 +121,16 @@ const CreatePostForm = () => {
                     postData: updatedPostData
                 };
 
+                console.log(JSON.stringify(requestData));
+
                 console.log("Requested Data: ", requestData);
 
-                const response = await fetch("/api/create-post", {
+                const response = await fetch("api/create-post", {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(requestData),
+                    body: JSON.stringify(requestData.postData),
                 });
 
                 if (!response.ok) {
@@ -145,7 +146,6 @@ const CreatePostForm = () => {
                         community: "Choose a community",
                         userName: "montes",
                         contentType: "",
-                        showTextInput: true,
                         contentImageURL: "",
                         contentText: ""
                     });
