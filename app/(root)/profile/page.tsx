@@ -12,14 +12,23 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import { getSession } from '@/lib/actions';
+import { redirect } from 'next/navigation';
 
 
 
-const Profile = () => {
+const Profile = async () => {
+
+  const session = await getSession();
+
+  if (!session.isLoggedIn) {
+    redirect("/");
+  }
+
   const userDetails = {
-    name: "Praneeth Ravuri",
-    email: "pravdev10@gmail.com",
-    phoneNumber: "5716228648",
+    name: session.fullName,
+    email: session.email,
+    phoneNumber: session.phoneNumber,
   };
 
   const ProfileSection = ({ title, content }: { title: string, content: string }) => (
