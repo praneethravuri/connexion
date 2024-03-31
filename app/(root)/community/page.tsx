@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState, useEffect } from 'react';
 import LeftSideBar from '@/components/shared/LeftSideBar';
 import RightSideBar from '@/components/shared/RightSideBar';
@@ -8,16 +7,10 @@ import Link from 'next/link';
 import Bottombar from '@/components/shared/Bottombar';
 import { Input } from '@/components/ui/input';
 import { SearchX, Users } from 'lucide-react';
-import { getSession } from '@/lib/actions';
-import { redirect } from 'next/navigation';
 
-const CommunityPage = async () => {
 
-  const session = await getSession();
+const CommunityPage = () => {
 
-  if(!session.isLoggedIn){
-    redirect("/");
-  }
 
   const [communities, setCommunities] = useState<ICommunityDocument[]>([]);
   const [searchQuery, setSearchQuery] = useState('');

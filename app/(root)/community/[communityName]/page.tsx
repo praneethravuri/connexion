@@ -6,16 +6,9 @@ import RightSideBar from '@/components/shared/RightSideBar';
 import { Users, SearchX } from 'lucide-react';
 import Bottombar from '@/components/shared/Bottombar';
 import UserPosts from '@/components/shared/UserPosts';
-import { getSession } from '@/lib/actions';
-import { redirect } from 'next/navigation';
 
-const Community = async ({ params }: { params: { communityName: string } }) => {
+const Community = ({ params }: { params: { communityName: string } }) => {
 
-  const session = await getSession();
-
-  if (!session.isLoggedIn) {
-    redirect("/");
-  }
 
   const [communityData, setCommunityData] = useState<ICommunityDocument | null>(null);
 
