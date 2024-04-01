@@ -25,7 +25,7 @@ const NavBar = async () => {
                         const isNotLogoutIcon = Icon !== LogOut;
                         return (
                             <div key={label} className='p-2 rounded-lg max-sm:hidden' >
-                                <Link href={href} passHref className='flex items-center space-x-2 hover:bg-zinc-800 p-3 rounded-lg'>
+                                <Link href={href} passHref className='flex items-center space-x-2 hover:bg-gray-800 p-3 rounded-lg'>
                                     <Icon color="#fff" />
                                     <p>{label}</p>
                                 </Link>
