@@ -19,13 +19,13 @@ export async function signUpHandler(email: string, password: string, phoneNumber
         return {
             message: "user created",
             userDetails: {
-                email: newUser.email,
-                password: newUser.password,
-                phoneNumber: newUser.phoneNumber,
-                userName: newUser.userName,
-                name: newUser.name,
-                createdAt: newUser.createdAt,
-                updatedAt: newUser.updatedAt
+                email: newUser.email || "",
+                password: newUser.password || "",
+                phoneNumber: newUser.phoneNumber || "",
+                userName: newUser.userName || "",
+                name: newUser.name || "",
+                createdAt: newUser.createdAt || new Date(),
+                updatedAt: newUser.updatedAt || new Date()
             }
         };
     } catch (error) {

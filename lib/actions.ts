@@ -69,13 +69,13 @@ export const signUp = async (formData: { email: string, password: string, userNa
 
       if (result.message === "user created") {
           console.log("User created!");
-          session.email = result.userDetails.email;
-          session.userName = result.userDetails.userName;
-          session.phoneNumber = result.userDetails.phoneNumber;
-          session.createdAt = result.userDetails.createdAt;
-          session.updatedAt = result.userDetails.updatedAt;
-          session.fullName = result.userDetails.name;
-          session.password = result.userDetails.password;
+          session.email = result.userDetails.email!;
+          session.userName = result.userDetails.userName!;
+          session.phoneNumber = result.userDetails.phoneNumber!;
+          session.createdAt = result.userDetails.createdAt!;
+          session.updatedAt = result.userDetails.updatedAt!;
+          session.fullName = result.userDetails.name!;
+          session.password = result.userDetails.password!;
           session.isLoggedIn = true;
           console.log("Signup result: ", result);
           await session.save();

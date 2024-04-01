@@ -14,6 +14,14 @@ import {
 } from "@/components/ui/alert-dialog"
 import { getSession } from '@/lib/actions';
 import { redirect } from 'next/navigation';
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs"
+import DisplayProfile from './DisplayProfile';
+import AccountSettings from './AccountSettings';
 
 
 
@@ -31,47 +39,31 @@ const Profile = async () => {
     phoneNumber: session.phoneNumber,
   };
 
-  const ProfileSection = ({ title, content }: { title: string, content: string }) => (
-    <div className='mt-5 m-1'>
-      <h1 className="text-white m-2 text-xl font-semibold">{title}</h1>
-      <hr className="border-t border-zinc-700 mx-auto w-11/12" />
-      <p className='m-2 text-gray-400'>{content}</p>
-    </div>
-  );
-
   return (
-    <>
-      <div className="flex items-center justify-center h-screen">
-        <div className="flex flex-col mx-auto w-6/12 md:w-6/12 lg:max-w-4xl rounded-lg bg-blackBackground px-6 py-3 m-3">
-          <div className='text-left w-full'>
-            <h1 className="text-white m-3 text-3xl font-semibold">Account</h1>
-            <p className='m-3 text-gray-400'>Manage your account settings</p>
-            <hr className="border-t border-zinc-700 mx-auto w-11/12" />
-            <ProfileSection title="Profile" content={userDetails.name} />
-            <ProfileSection title="Email" content={userDetails.email} />
-            <ProfileSection title="Phone Number" content={userDetails.phoneNumber} />
-            <AlertDialog>
-              <AlertDialogTrigger className='mt-5 m-2 bg-destructive text-destructive-foreground hover:bg-destructive/90 w-40 h-10 px-4 py-2 rounded-md'>Delete Account</AlertDialogTrigger>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    This action cannot be undone. This will permanently delete your account
-                    and remove your data from our servers.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>Cancel</AlertDialogCancel>
-                  <AlertDialogAction>Continue</AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
+    <section>
+      <main className='w-5/6 mx-auto m-6'>
+        <div className="settings-title">
+          <p className='text-4xl font-semibold'>Settings</p>
+          <p className='text-base text-gray-400'>Manage your account settings</p>
+          <hr className="border-t border-zinc-800 mx-auto my-4" />
 
+          <div className="tab-content">
+            <Tabs defaultValue="profile" className="w-[400px]">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="profile">Profile</TabsTrigger>
+                <TabsTrigger value="account">Account</TabsTrigger>
+              </TabsList>
+              <TabsContent value="profile">
+                <DisplayProfile />
+              </TabsContent>
+              <TabsContent value="account">
+                <AccountSettings />
+              </TabsContent>
+            </Tabs>
           </div>
         </div>
-      </div>
-      <Bottombar />
-    </>
+      </main>
+    </section>
   )
 }
 

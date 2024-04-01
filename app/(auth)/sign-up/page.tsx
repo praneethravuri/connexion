@@ -42,6 +42,12 @@ export default function SignUpPage() {
     
         try {
             await signUp({ email, password, userName, phoneNumber: formData.phoneNumber, name: formData.name });
+            console.log("Email: ", email);
+            console.log("Password: ", password);
+            console.log("Username: ", userName);
+            console.log("Phone number: ", formData.phoneNumber),
+            console.log("Name: ", formData.name);
+
             redirect("/homepage");
         } catch (error) {
             if (error.message === 'Email already exists') {
