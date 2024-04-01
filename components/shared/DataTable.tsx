@@ -16,8 +16,8 @@ type DataTableProps = {
     header: string;
   }[];
   data: any[];
-  onEdit: (item: any) => void;
-  onDelete: (item: any) => void;
+  // onEdit: (item: any) => void;
+  // onDelete: (item: any) => void;
 };
 
 const formatDate = (dateInput: Date | string) => {
@@ -51,13 +51,13 @@ const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
                 <TableCell key={column.accessorKey}>
                   {column.accessorKey === 'createdAt'
                     ? formatDate(item[column.accessorKey])
-                    : column.accessorKey === 'actions'
-                    ? (
-                        <>
-                          <Button variant="destructive" onClick={() => onEdit(item)} className="mr-2">Edit</Button>
-                          <Button variant="ghost" onClick={() => onDelete(item)}>Delete</Button>
-                        </>
-                      )
+                    // : column.accessorKey === 'actions'
+                    // ? (
+                    //     <>
+                    //       <Button variant="destructive" onClick={() => onEdit(item)} className="mr-2">Edit</Button>
+                    //       <Button variant="ghost" onClick={() => onDelete(item)}>Delete</Button>
+                    //     </>
+                    //   )
                     : item[column.accessorKey]}
                 </TableCell>
               ))}
