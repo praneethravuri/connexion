@@ -48,10 +48,10 @@ const Profile = async () => {
           <hr className="border-t border-zinc-800 mx-auto my-4" />
 
           <div className="tab-content">
-            <Tabs defaultValue="profile" className="w-[400px]">
-              <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="profile">Profile</TabsTrigger>
-                <TabsTrigger value="account">Account</TabsTrigger>
+            <Tabs defaultValue="profile" className="">
+              <TabsList className="w-1/3">
+                <TabsTrigger className='w-full' value="profile">Profile</TabsTrigger>
+                <TabsTrigger className='w-full' value="account">Account</TabsTrigger>
               </TabsList>
               <TabsContent value="profile">
                 <DisplayProfile />

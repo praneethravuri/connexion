@@ -33,7 +33,7 @@ export default function SignUpPage() {
         event.preventDefault();
         setErrorMessage('');
     
-        const { email, emailConfirm, password, passwordConfirm, userName } = formData;
+        const { name, email, emailConfirm, password, passwordConfirm, userName, phoneNumber } = formData;
     
         if (email !== emailConfirm || password !== passwordConfirm) {
             setErrorMessage("Emails or passwords do not match. Please try again.");
@@ -41,7 +41,7 @@ export default function SignUpPage() {
         }
     
         try {
-            await signUp({ email, password, userName, phoneNumber: formData.phoneNumber, name: formData.name });
+            await signUp({ name, email, password, phoneNumber, userName });
             console.log("Email: ", email);
             console.log("Password: ", password);
             console.log("Username: ", userName);

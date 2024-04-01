@@ -60,34 +60,34 @@ export const logout = async () => {
 
 }
 
-export const signUp = async (formData: { email: string, password: string, userName: string, phoneNumber: string, name: string }) => {
+export const signUp = async (formData: { name: string, email: string, password: string, phoneNumber: string, userName: string }) => {
   const session = await getSession();
-  const { email, password, userName, phoneNumber, name } = formData;
+  const { name, email, password, phoneNumber, userName } = formData;
 
   try {
-      const result = await signUpHandler(email, password, userName, phoneNumber, name);
+    const result = await signUpHandler(name, email, password, phoneNumber, userName);
 
-      if (result.message === "user created") {
-          console.log("User created!");
-          session.email = result.userDetails.email!;
-          session.userName = result.userDetails.userName!;
-          session.phoneNumber = result.userDetails.phoneNumber!;
-          session.createdAt = result.userDetails.createdAt!;
-          session.updatedAt = result.userDetails.updatedAt!;
-          session.fullName = result.userDetails.name!;
-          session.password = result.userDetails.password!;
-          session.isLoggedIn = true;
-          console.log("Signup result: ", result);
-          await session.save();
-          redirect("/homepage");
-      } else if (result.message === "duplicate") {
-          throw new Error('Email already exists');
-      } else {
-          console.log("Invalid details signup actions.ts!!!");
-          throw new Error('Invalid details');
-      }
+    if (result.message === "user created") {
+      console.log("User created!");
+      session.email = result.userDetails.email!;
+      session.userName = result.userDetails.userName!;
+      session.phoneNumber = result.userDetails.phoneNumber!;
+      session.createdAt = result.userDetails.createdAt!;
+      session.updatedAt = result.userDetails.updatedAt!;
+      session.fullName = result.userDetails.name!;
+      session.password = result.userDetails.password!;
+      session.isLoggedIn = true;
+      console.log("Signup result: ", result);
+      await session.save();
+      redirect("/homepage");
+    } else if (result.message === "duplicate") {
+      throw new Error('Email already exists');
+    } else {
+      console.log("Invalid details signup actions.ts!!!");
+      throw new Error('Invalid details');
+    }
   } catch (error) {
-      console.error('Error:', error);
-      throw error;
+    console.error('Error:', error);
+    throw error;
   }
 }

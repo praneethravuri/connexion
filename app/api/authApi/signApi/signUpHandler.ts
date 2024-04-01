@@ -1,7 +1,7 @@
 import User from "../../../../models/userModel";
 import { connectToDB } from "@/lib/connectDB";
 
-export async function signUpHandler(email: string, password: string, phoneNumber: string, userName: string, name: string) {
+export async function signUpHandler(name: string, email: string, password: string, phoneNumber: string, userName: string) {
     await connectToDB();
 
     try {
@@ -14,7 +14,9 @@ export async function signUpHandler(email: string, password: string, phoneNumber
             };
         }
 
-        const newUser = await User.create({ email, password, phoneNumber, userName, name });
+        const newUser = await User.create({ name, email, password, phoneNumber, userName });
+
+        console.log(newUser);
 
         return {
             message: "user created",

@@ -4,7 +4,7 @@ import { ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from "@/components/ui/input";
 import { Textarea } from '@/components/ui/textarea';
-import Community, { ICommunityDocument } from '@/models/communityModel';
+import { ICommunityDocument } from '@/models/communityModel';
 import { useToast } from "@/components/ui/use-toast";
 import {
     DropdownMenu,
@@ -12,6 +12,7 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { postHandler } from '@/app/api/createApi/createPostHandler';
 
 const CreatePostForm = () => {
     const { toast } = useToast()
@@ -121,26 +122,9 @@ const CreatePostForm = () => {
                     postData: updatedPostData
                 };
 
-                console.log(JSON.stringify(requestData));
+                const response = await postHandler(requestData.postData);
 
-                console.log("Requested Data: ", requestData);
-
-                const response = await fetch("api/create-post", {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(requestData.postData),
-                });
-
-                if (!response.ok) {
-                    throw new Error('Failed to create post');
-                }
-
-                const result = await response.json();
-                console.log(result);
-
-                if (result.message === "Post Created") {
+                if (response.message === "Post Created") {
                     setPostData({
                         title: "",
                         community: "Choose a community",
@@ -152,12 +136,12 @@ const CreatePostForm = () => {
 
                     toast({
                         title: "Success!",
-                        description: "Your post has been created.",
-                        // Optional: Add any actions or customize as needed
+                        description: "Your post has been created."
                     });
                 } else {
                     console.log("Error creating the post");
                 }
+
             } catch (error) {
                 console.error('Error: ', error);
             }

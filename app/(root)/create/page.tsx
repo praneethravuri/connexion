@@ -1,34 +1,15 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import LeftSideBar from '@/components/shared/LeftSideBar';
 import RightSideBar from '@/components/shared/RightSideBar';
-import { ChevronDown } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from "@/components/ui/input";
-import { Textarea } from '@/components/ui/textarea';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import Community, { ICommunityDocument } from '@/models/communityModel';
 import Bottombar from '@/components/shared/Bottombar';
-import { useToast } from "@/components/ui/use-toast"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CreatePostForm from './CreatePostForm';
 import CreateCommunityForm from './CreateCommunityForm';
-import { getSession } from '@/lib/actions';
-import { redirect } from 'next/navigation';
 
 
-const CreateContent = async () => {
 
-  const session = await getSession();
-
-  if(!session.isLoggedIn){
-    redirect("/");
-  }
+const CreateContent = () => {
   
   return (
     <section className='bg-black h-screen w-full flex'>
