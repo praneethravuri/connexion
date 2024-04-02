@@ -14,12 +14,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { postHandler } from '@/app/api/createApi/createPostHandler';
 
-const CreatePostForm = () => {
+const CreatePostForm = ({ user }: { user: string }) => {
     const { toast } = useToast()
     const [postData, setPostData] = useState({
         title: "",
         community: "Choose a community",
-        userName: "montes",
+        userName: user,
         contentType: "",
         contentText: "",
         contentImageURL: ""
@@ -122,7 +122,17 @@ const CreatePostForm = () => {
                     postData: updatedPostData
                 };
 
-                const response = await postHandler(requestData.postData);
+                const response = await fetch("api/create-post", {
+                    method: "POST",
+                    headers : {
+                        "Content-Type" : "application/json",
+                    },
+                    body : JSON.stringify(requestData),
+                });
+
+                if (!response.ok) {
+                    throw new Error("Failed to create post");
+                  }
 
                 if (response.message === "Post Created") {
                     setPostData({

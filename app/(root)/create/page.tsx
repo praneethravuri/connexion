@@ -1,4 +1,3 @@
-"use client";
 import React from 'react';
 import LeftSideBar from '@/components/shared/LeftSideBar';
 import RightSideBar from '@/components/shared/RightSideBar';
@@ -6,11 +5,20 @@ import Bottombar from '@/components/shared/Bottombar';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CreatePostForm from './CreatePostForm';
 import CreateCommunityForm from './CreateCommunityForm';
+import { getSession } from '@/lib/actions';
+import { redirect } from 'next/navigation';
 
 
 
-const CreateContent = () => {
-  
+const CreateContent = async () => {
+
+  const session = await getSession();
+  if (!session.isLoggedIn) {
+    redirect("/");
+  }
+
+  const userName = session.userName;
+
   return (
     <section className='bg-black h-screen w-full flex'>
       <LeftSideBar />
@@ -23,7 +31,7 @@ const CreateContent = () => {
             <TabsTrigger value="create-community">Create Community</TabsTrigger>
           </TabsList>
           <TabsContent value="create-post">
-            <CreatePostForm />
+            <CreatePostForm user = {userName} />
           </TabsContent>
           <TabsContent value="create-community">
             <CreateCommunityForm />

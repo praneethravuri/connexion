@@ -3,14 +3,14 @@ import { connectToDB } from "@/lib/connectDB";
 
 export async function POST(req: Request) {
     await connectToDB();
-
+    console.log("here at post create api route");
     try {
-        const { formData } = await req.json();
-        const userData = formData;
+        const { postData } = await req.json();
 
-        console.log("User Data: ", userData);
 
-        await Post.create(userData);
+        console.log("Post Data: ", postData);
+
+        await Post.create(postData);
         return new Response(JSON.stringify({ message: "Post Created" }), { status: 201 });
     }
     catch (err) {
