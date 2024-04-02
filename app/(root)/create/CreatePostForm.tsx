@@ -160,7 +160,7 @@ const CreatePostForm = ({ user }: { user: string }) => {
 
     return (
         <section>
-            <h2 className='text-3xl font-semibold'>Create a post</h2>
+            <h2 className='text-3xl font-semibold'>Create a Post</h2>
             <hr className="border-t border-zinc-800 mx-auto my-4" />
             <div className='communities-drop-down'>
                 {errors.communityError && (
