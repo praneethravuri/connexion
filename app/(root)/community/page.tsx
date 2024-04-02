@@ -70,7 +70,7 @@ const CommunityPage = () => {
                   <div className="mb-2 items-center">
                     <div className="flex items-center space-x-4">
                       <div className="w-24 h-24 overflow-hidden rounded-lg">
-                        <img src={community.communityImage} alt={community.communityName} className="w-full h-full object-cover" />
+                        <img src={community.communityImage} alt={community.communityName} className=" w-full h-full object-cover" />
                       </div>
                       <div className="ml-8">
                         <p className='text-2xl font-semibold'>{community.communityName.charAt(0).toUpperCase() + community.communityName.slice(1)}</p>
