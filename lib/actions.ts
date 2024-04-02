@@ -25,9 +25,7 @@ export const login = async (formData: { email: string; password: string; }) => {
     const result = await loginHandler(email, password);
 
     if (result.message === 'Login successful') {
-      console.log("Login successful actions.ts!");
-
-      // Update the session with the user details
+      // console.log("Login successful actions.ts!");
       session.email = result.userDetails.email;
       session.userName = result.userDetails.userName;
       session.phoneNumber = result.userDetails.phoneNumber;
@@ -37,13 +35,10 @@ export const login = async (formData: { email: string; password: string; }) => {
       session.password = result.userDetails.password;
       session.userId = result.userDetails.userId;
       session.isLoggedIn = true;
-
-      console.log("Login result: ", result);
-
       await session.save();
       redirect("/homepage");
     } else {
-      console.log("Invalid creds actions.ts!!!");
+      // console.log("Invalid creds actions.ts!!!");
       throw new Error('Invalid credentials');
     }
   } catch (error) {
@@ -67,7 +62,7 @@ export const signUp = async (formData: { name: string, email: string, password: 
   try {
     const result = await signUpHandler(name, email, password, phoneNumber, userName);
 
-    if (result.message === "user created") {
+    if (result.message === "success") {
       console.log("User created!");
       session.email = result.userDetails.email!;
       session.userName = result.userDetails.userName!;
@@ -79,15 +74,13 @@ export const signUp = async (formData: { name: string, email: string, password: 
       session.isLoggedIn = true;
       console.log("Signup result: ", result);
       await session.save();
-      redirect("/homepage");
-    } else if (result.message === "duplicate") {
-      throw new Error('Email already exists');
-    } else {
-      console.log("Invalid details signup actions.ts!!!");
-      throw new Error('Invalid details');
+      return result.message
+    }
+    else {
+      return result.message
     }
   } catch (error) {
     console.error('Error:', error);
-    throw error;
+    return 'An unexpected error occurred. Please try again.';
   }
 }

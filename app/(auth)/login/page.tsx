@@ -1,29 +1,22 @@
 "use client";
-
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Input } from "@/components/ui/input";
 import { Button } from '@/components/ui/button';
 import AuthLayout from "../layout";
 import { login } from "@/lib/actions"
-import { redirect } from 'next/navigation';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setErrorMessage('');
 
     try {
-      // Call the login function from actions.ts
       await login({ email, password });
-      // router.push("/homepage");
-      redirect("/homepage");
     } catch (error) {
       console.error('Error:', error);
       setErrorMessage('Failed to login. Please try again.');

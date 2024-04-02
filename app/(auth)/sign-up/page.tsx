@@ -30,30 +30,22 @@ export default function SignUpPage() {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setErrorMessage('');
-    
+
         const { name, email, emailConfirm, password, passwordConfirm, userName, phoneNumber } = formData;
-    
+
         if (email !== emailConfirm || password !== passwordConfirm) {
             setErrorMessage("Emails or passwords do not match. Please try again.");
             return;
         }
-    
         try {
-            await signUp({ name, email, password, phoneNumber, userName });
-            // console.log("Email: ", email);
-            // console.log("Password: ", password);
-            // console.log("Username: ", userName);
-            // console.log("Phone number: ", formData.phoneNumber),
-            // console.log("Name: ", formData.name);
-
-            redirect("/homepage");
-        } catch (error) {
-            if (error.message === 'Email already exists') {
-                setErrorMessage("Email already exists. Please use a different email.");
+            const message = await signUp({ name, email, password, phoneNumber, userName });
+            if (message === "success") {
+                redirect("/homepage");
             } else {
-                console.log(error);
-                setErrorMessage("Failed to sign up. Please try again");
+                setErrorMessage(message);
             }
+        } catch (error) {
+            console.log(error);
         }
     };
 
