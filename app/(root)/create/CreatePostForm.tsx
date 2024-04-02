@@ -30,7 +30,7 @@ const CreatePostForm = ({ user }: { user: string }) => {
     useEffect(() => {
         const fetchCommunities = async () => {
             try {
-                const response = await fetch('/api/fetch-communities');
+                const response = await fetch('/api/communityApi/fetch-communities');
                 if (!response.ok) throw new Error('Network response was not ok');
                 const data: ICommunityDocument[] = await response.json();
                 setCommunities(data);

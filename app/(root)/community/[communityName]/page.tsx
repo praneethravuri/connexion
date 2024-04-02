@@ -15,7 +15,7 @@ const Community = ({ params }: { params: { communityName: string } }) => {
   useEffect(() => {
     const fetchCommunityData = async () => {
       try {
-        const response = await fetch(`/api/fetch-selected-community?communityName=${params.communityName.toLowerCase()}`);
+        const response = await fetch(`/api/communityApi/fetch-selected-community?communityName=${params.communityName.toLowerCase()}`);
         const data = await response.json();
 
         if (response.ok) {
