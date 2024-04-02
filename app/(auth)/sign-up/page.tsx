@@ -1,6 +1,5 @@
 "use client";
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Input } from "@/components/ui/input";
 import { Button } from '@/components/ui/button';
@@ -9,7 +8,6 @@ import { signUp } from '@/lib/actions';
 import { redirect } from 'next/navigation';
 
 export default function SignUpPage() {
-    const router = useRouter();
     const [formData, setFormData] = useState({
         name: "",
         userName: "",
@@ -42,11 +40,11 @@ export default function SignUpPage() {
     
         try {
             await signUp({ name, email, password, phoneNumber, userName });
-            console.log("Email: ", email);
-            console.log("Password: ", password);
-            console.log("Username: ", userName);
-            console.log("Phone number: ", formData.phoneNumber),
-            console.log("Name: ", formData.name);
+            // console.log("Email: ", email);
+            // console.log("Password: ", password);
+            // console.log("Username: ", userName);
+            // console.log("Phone number: ", formData.phoneNumber),
+            // console.log("Name: ", formData.name);
 
             redirect("/homepage");
         } catch (error) {
