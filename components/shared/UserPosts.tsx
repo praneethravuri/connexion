@@ -8,7 +8,7 @@ interface UserPostsProps {
   filter?: string;
 }
 
-const UserPosts: React.FC<UserPostsProps> = ({ filter = 'all' }) => {
+const UserPosts: React.FC<UserPostsProps> = ({ filter }) => {
   const [posts, setPosts] = useState<IPostDocument[]>([]);
 
   useEffect(() => {

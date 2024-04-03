@@ -11,6 +11,8 @@ import {
 import DisplayProfile from './DisplayProfile';
 import AccountSettings from './AccountSettings';
 import UserActivity from './UserActivity';
+import RightSideBar from '@/components/shared/RightSideBar';
+
 
 
 const Profile = async () => {
@@ -25,6 +27,8 @@ const Profile = async () => {
     name: session.fullName,
     email: session.email,
     phoneNumber: session.phoneNumber,
+    username: session.userName,
+    password:session.password,
   };
 
   return (
@@ -44,10 +48,10 @@ const Profile = async () => {
                 <TabsTrigger className='w-full' value="activity">Activity</TabsTrigger>
               </TabsList>
               <TabsContent value="profile">
-                <DisplayProfile />
+                <DisplayProfile userDetails = {userDetails} />
               </TabsContent>
               <TabsContent value="account">
-                <AccountSettings />
+                <AccountSettings userDetails = {userDetails} />
               </TabsContent>
               <TabsContent value="activity">
                 <UserActivity />
@@ -56,6 +60,7 @@ const Profile = async () => {
           </div>
         </div>
       </main>
+      <RightSideBar />
     </section>
   )
 }

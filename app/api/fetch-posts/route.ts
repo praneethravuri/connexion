@@ -15,10 +15,15 @@ export async function GET(req: Request) {
     if (filter === 'all' || filter === null) {
       posts = await Post.find();
     } else {
-      // Ensure filter is a string for the MongoDB query.
-      // Using RegExp for case-insensitive search, assuming `filter` is not null here.
+      // Use RegExp for case-insensitive search
       const regex = new RegExp(filter, 'i'); // 'i' for case-insensitive
-      posts = await Post.find({ community: regex });
+      // Find posts where either the userName or community matches the filter
+      posts = await Post.find({
+        $or: [
+          { userName: regex },
+          { community: regex }
+        ]
+      });
     }
 
     return new Response(JSON.stringify(posts), { status: 200 });

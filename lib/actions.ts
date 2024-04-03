@@ -6,6 +6,7 @@ import { cookies } from "next/headers"
 import { redirect } from "next/navigation";
 import { loginHandler } from "@/app/api/authApi/loginApi/loginHandler";
 import { signUpHandler } from "@/app/api/authApi/signApi/signUpHandler";
+import { deleteHandler } from "@/app/api/authApi/deleteApi/deleteHandler";
 
 export const getSession = async () => {
   const session = await getIronSession<SessionData>(cookies(), sessionOptions)
@@ -84,3 +85,26 @@ export const signUp = async (formData: { name: string, email: string, password: 
     return 'An unexpected error occurred. Please try again.';
   }
 }
+
+export const deleteAccount = async () => {
+  const session = await getSession();
+  const email = session.email;
+
+  if (!email) {
+    throw new Error('User email not found in session');
+  }
+
+  try {
+    const result = await deleteHandler(email);
+
+    if (result.message === 'User deleted successfully') {
+      await session.destroy();
+      redirect('/login');
+    } else {
+      throw new Error(result.message);
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    throw error;
+  }
+};

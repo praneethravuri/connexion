@@ -1,21 +1,20 @@
-import React from 'react'
-import { getSession } from '@/lib/actions';
-import { redirect } from 'next/navigation';
+"use client";
+import React from 'react';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Button } from '@/components/ui/button';
+import { deleteAccount } from '@/lib/actions';
 
-const DisplayProfile = async () => {
-
-  const session = await getSession();
-
-  if (!session.isLoggedIn) {
-    redirect("/");
-  }
-
-  const userDetails = {
-    name: session.fullName,
-    email: session.email,
-    phoneNumber: session.phoneNumber,
-    username: session.userName
-  };
+const DisplayProfile = ({ userDetails }) => {
 
   return (
     <main className='mt-4 w-2/3 space-y-10'>
@@ -37,9 +36,43 @@ const DisplayProfile = async () => {
       </div>
 
       <div className="email">
-      <p className='text-xl font-semibold'>Email</p>
+        <p className='text-xl font-semibold'>Email</p>
         <p className='p-3 border border-zinc-800 rounded-lg w-full'>{userDetails.email}</p>
         <p className='text-gray-400'>You can manage verified email addresses in your email settings.</p>
+      </div>
+
+      <div className="delete-account">
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button variant="destructive">Delete Account</Button>
+          </AlertDialogTrigger>
+          <AlertDialogContent className='border border-zinc-800'>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This action cannot be undone. This will permanently delete your
+                account and remove your data from our servers.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction>
+                <button
+                  onClick={async () => {
+                    try {
+                      await deleteAccount();
+                    } catch (error) {
+                      console.error('Error deleting account:', error);
+                      // Handle error (e.g., display an error message)
+                    }
+                  }}
+                >
+                  Continue
+                </button>
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       </div>
     </main>
   )

@@ -20,7 +20,7 @@ const HomePage = async () => {
       <LeftSideBar />
       <main className="main-content flex-1 overflow-y-auto px-20 pt-6">
         <p className='text-3xl'>Welcome, &nbsp;{user}👋</p>
-        <UserPosts />
+        <UserPosts filter='all' />
       </main>
       <RightSideBar />
       <Bottombar />
