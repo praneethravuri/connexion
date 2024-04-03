@@ -31,6 +31,8 @@ const Profile = async () => {
     password:session.password,
   };
 
+  console.log("User Details main: ", userDetails);
+
   return (
     <section className='bg-black h-screen w-full flex'>
       <LeftSideBar />

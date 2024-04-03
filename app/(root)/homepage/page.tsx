@@ -14,6 +14,7 @@ const HomePage = async () => {
   }
 
   const user = session.fullName;
+  console.log("Session homepage: ", session);
 
   return (
     <section className='bg-black h-screen w-full flex'>

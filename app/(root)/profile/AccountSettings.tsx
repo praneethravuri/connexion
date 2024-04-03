@@ -1,22 +1,34 @@
 "use client";
 import React, { useState } from 'react';
-import { Input } from "@/components/ui/Input";
-import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 
-const AccountSettings = ({ userDetails }) => {
+interface UserDetails {
+  name: string;
+  email: string;
+  phoneNumber: string;
+  username: string;
+  password: string;
+}
+
+interface DisplayProfileProps {
+  userDetails: UserDetails;
+}
+
+const AccountSettings: React.FC<DisplayProfileProps> = ({ userDetails }) => {
   const [formData, setFormData] = useState({
     name: userDetails.name,
-    username: userDetails.userName,
+    username: userDetails.username,
     email: userDetails.email,
     password: userDetails.password,
     phoneNumber: userDetails.phoneNumber,
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
@@ -51,7 +63,7 @@ const AccountSettings = ({ userDetails }) => {
 
       <form onSubmit={handleSubmit} className='space-y-10'>
         <div>
-          <p className='text-2xl font-semibold'>Profile</p>
+          <p className='text-xl font-semibold'>Profile</p>
           <Input
             type="text"
             id="name"
@@ -62,7 +74,7 @@ const AccountSettings = ({ userDetails }) => {
         </div>
 
         <div>
-          <p className='text-2xl font-semibold'>Profile</p>
+          <p className='text-xl font-semibold'>Profile</p>
           <Input
             type="text"
             id="username"
@@ -73,7 +85,7 @@ const AccountSettings = ({ userDetails }) => {
         </div>
 
         <div>
-        <p className='text-2xl font-semibold'>Email</p>
+        <p className='text-xl font-semibold'>Email</p>
           <Input
             type="email"
             id="email"
@@ -84,7 +96,7 @@ const AccountSettings = ({ userDetails }) => {
         </div>
 
         <div>
-        <p className='text-2xl font-semibold'>Password</p>
+        <p className='text-xl font-semibold'>Password</p>
           <Input
             type="password"
             id="password"
@@ -95,7 +107,7 @@ const AccountSettings = ({ userDetails }) => {
         </div>
 
         <div>
-        <p className='text-2xl font-semibold'>Phone Number</p>
+        <p className='text-xl font-semibold'>Phone Number</p>
           <Input
             type="text"
             id="phoneNumber"

@@ -14,7 +14,21 @@ import {
 import { Button } from '@/components/ui/button';
 import { deleteAccount } from '@/lib/actions';
 
-const DisplayProfile = ({ userDetails }) => {
+interface UserDetails {
+  name: string;
+  email: string;
+  phoneNumber: string;
+  username: string;
+  password: string;
+}
+
+interface DisplayProfileProps {
+  userDetails: UserDetails;
+}
+
+const DisplayProfile: React.FC<DisplayProfileProps> = ({ userDetails }) => {
+
+  console.log(userDetails);
 
   return (
     <main className='mt-4 w-2/3 space-y-10'>

@@ -25,8 +25,9 @@ export const login = async (formData: { email: string; password: string; }) => {
   try {
     const result = await loginHandler(email, password);
 
+    console.log("Actions.ts result: ", result);
+
     if (result.message === 'Login successful') {
-      // console.log("Login successful actions.ts!");
       session.email = result.userDetails.email;
       session.userName = result.userDetails.userName;
       session.phoneNumber = result.userDetails.phoneNumber;
@@ -36,10 +37,10 @@ export const login = async (formData: { email: string; password: string; }) => {
       session.password = result.userDetails.password;
       session.userId = result.userDetails.userId;
       session.isLoggedIn = true;
+      console.log("Actions.ts", result.userDetails.userName);
       await session.save();
       redirect("/homepage");
     } else {
-      // console.log("Invalid creds actions.ts!!!");
       throw new Error('Invalid credentials');
     }
   } catch (error) {
