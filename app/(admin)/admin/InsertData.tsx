@@ -23,23 +23,30 @@ const InsertData = () => {
             // Generate fake users data
             const fakeUsers = generateFakeUsers(10); // Generate 10 fake users
 
-            // Insert fake users data into the "users" collection
-            for (const fakeUser of fakeUsers) {
-                const { name, email, password, phoneNumber, userName } = fakeUser;
-                const result = await signUpHandler(name, email, password, phoneNumber, userName);
+            console.log(JSON.stringify(fakeUsers));
 
-                if (result.message !== 'success') {
-                    console.error(`Error creating user: ${result.message}`);
-                } else {
-                    console.log('User created successfully:', result.userDetails);
-                }
+            // Use fetch API to send a POST request to your server
+            const response = await fetch('/api/admin-api/insert-users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(fakeUsers), // Assuming the backend expects an object with a users property
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                console.log('Users inserted successfully:', result);
+                setFakeUsers(fakeUsers); // Update the state with the generated fake users
+            } else {
+                console.error('Error inserting users:', result.message);
             }
-
-            setFakeUsers(fakeUsers); // Update the state with the generated fake users
         } catch (err) {
             console.error('Error inserting fake users data:', err);
         }
     };
+
 
     return (
         <section className='flex w-full justify-between'>
