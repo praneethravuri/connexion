@@ -11,7 +11,9 @@ import {
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/components/ui/tabs"
+} from "@/components/ui/tabs";
+import InsertData from "./InsertData";
+
 
 const AdminPage: React.FC = () => {
   const [posts, setPosts] = useState<IPostDocument[]>([]);
@@ -141,22 +143,26 @@ const AdminPage: React.FC = () => {
         </div>
 
         <div className="data-table-tabs p-4">
-        <Tabs defaultValue="users">
-          <TabsList className="w-1/2 flex">
-            <TabsTrigger className="w-full" value="users">Users</TabsTrigger>
-            <TabsTrigger className="w-full" value="posts">Posts</TabsTrigger>
-            <TabsTrigger className="w-full" value="communities">Communities</TabsTrigger>
-          </TabsList>
-          <TabsContent value="users">
-          <TableInfo data={users} columns={userColumns} title="User" />
-          </TabsContent>
-          <TabsContent value="posts">
-          <TableInfo data={posts} columns={postsColumn} title="Posts" />
-          </TabsContent>
-          <TabsContent value="communities">
-          <TableInfo data={communities} columns={communitiesColumn} title="Communities" />
-          </TabsContent>
-        </Tabs>
+          <Tabs defaultValue="users">
+            <TabsList className="w-1/2 flex">
+              <TabsTrigger className="w-full" value="users">Users</TabsTrigger>
+              <TabsTrigger className="w-full" value="posts">Posts</TabsTrigger>
+              <TabsTrigger className="w-full" value="communities">Communities</TabsTrigger>
+              <TabsTrigger className="w-full" value="insertData">Insert Data</TabsTrigger>
+            </TabsList>
+            <TabsContent value="users">
+              <TableInfo data={users} columns={userColumns} title="User" />
+            </TabsContent>
+            <TabsContent value="posts">
+              <TableInfo data={posts} columns={postsColumn} title="Posts" />
+            </TabsContent>
+            <TabsContent value="communities">
+              <TableInfo data={communities} columns={communitiesColumn} title="Communities" />
+            </TabsContent>
+            <TabsContent value="insertData">
+              <InsertData />
+            </TabsContent>
+          </Tabs>
         </div>
 
       </main>

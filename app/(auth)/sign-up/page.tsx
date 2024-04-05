@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from '@/components/ui/button';
 import AuthLayout from '../layout';
 import { signUp } from '@/lib/actions';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/router';
 
 export default function SignUpPage() {
     const [formData, setFormData] = useState({
@@ -18,6 +18,7 @@ export default function SignUpPage() {
         phoneNumber: "",
     });
     const [errorMessage, setErrorMessage] = useState('');
+
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -40,7 +41,9 @@ export default function SignUpPage() {
         try {
             const message = await signUp({ name, email, password, phoneNumber, userName });
             if (message === "success") {
-                redirect("/homepage");
+                console.log("success");
+                const router = useRouter();
+                router.push('/homepage');
             } else {
                 setErrorMessage(message);
             }

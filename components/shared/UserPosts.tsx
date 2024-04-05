@@ -39,49 +39,56 @@ const UserPosts: React.FC<UserPostsProps> = ({ filter }) => {
 
   return (
     <>
-      {posts.map((post) => (
-        <React.Fragment key={post.id}>
-          <hr className="border-t border-zinc-800 mx-auto my-4" />
-          <article className="bg-black text-white p-4 rounded-lg hover:bg-gray-800">
-            <div className="mb-2 flex justify-between items-center">
-              <div className='flex'>
-                <Link href='/' className="text-base text-zinc-500 hover:text-zinc-200 cursor-pointer">{post.userName}</Link>
-                <Dot />
-                <Link href={`/community/${post.community}`} className="text-base text-zinc-500 hover:text-zinc-200 cursor-pointer">{post.community.charAt(0).toUpperCase() + post.community.slice(1)}</Link>
+      {posts.length === 0 ? (
+        <div className='mx-auto'>
+          <p className="text-white mx-auto">No posts found.</p>
+        </div>
+        
+      ) : (
+        posts.map((post) => (
+          <React.Fragment key={post.id}>
+            <hr className="border-t border-zinc-800 mx-auto my-4" />
+            <article className="bg-black text-white p-4 rounded-lg hover:bg-gray-800">
+              <div className="mb-2 flex justify-between items-center">
+                <div className='flex'>
+                  <Link href='/' className="text-base text-zinc-500 hover:text-zinc-200 cursor-pointer">{post.userName}</Link>
+                  <Dot />
+                  <Link href={`/community/${post.community}`} className="text-base text-zinc-500 hover:text-zinc-200 cursor-pointer">{post.community.charAt(0).toUpperCase() + post.community.slice(1)}</Link>
+                </div>
+                <span className="text-base text-zinc-500">{formatDate(post.createdAt)}</span>
               </div>
-              <span className="text-base text-zinc-500">{formatDate(post.createdAt)}</span>
-            </div>
-            <h3 className="text-2xl font-bold mb-2">{post.title}</h3>
-            {post.contentType === "text" ? (
-              <p>{post.contentText}</p>
-            ) : post.contentType === "image" ? (
-              <img src={post.contentImageURL} alt={post.title} width={1000} height={400} className="max-w-full h-auto rounded-lg" />
-            ) : post.contentType === "mix" ? (
-              <>
+              <h3 className="text-2xl font-bold mb-2">{post.title}</h3>
+              {post.contentType === "text" ? (
+                <p>{post.contentText}</p>
+              ) : post.contentType === "image" ? (
                 <img src={post.contentImageURL} alt={post.title} width={1000} height={400} className="max-w-full h-auto rounded-lg" />
-                <p className='mt-3'>{post.contentText}</p>
-              </>
-            ) : null}
-            <div className="buttons flex space-x-4 mt-3">
-              <div className='rounded-lg flex items-center space-x-2'>
-                <ThumbsUp className='h-5 w-5 cursor-pointer' color="#fff" /><span>12</span>
+              ) : post.contentType === "mix" ? (
+                <>
+                  <img src={post.contentImageURL} alt={post.title} width={1000} height={400} className="max-w-full h-auto rounded-lg" />
+                  <p className='mt-3'>{post.contentText}</p>
+                </>
+              ) : null}
+              <div className="buttons flex space-x-4 mt-3">
+                <div className='rounded-lg flex items-center space-x-2'>
+                  <ThumbsUp className='h-5 w-5 cursor-pointer' color="#fff" /><span>12</span>
+                </div>
+                <div className='rounded-lg flex items-center space-x-2'>
+                  <ThumbsDown className='h-5 w-5 cursor-pointer' color="#fff" /><span>12</span>
+                </div>
+                <div className='rounded-lg flex items-center space-x-2'>
+                  <MessageSquare className='h-5 w-5 cursor-pointer' color="#fff" /><span>12</span>
+                </div>
+                <div className='rounded-lg flex items-center space-x-2'>
+                  <Share className='h-5 w-5 cursor-pointer' color="#fff" />
+                </div>
               </div>
-              <div className='rounded-lg flex items-center space-x-2'>
-                <ThumbsDown className='h-5 w-5 cursor-pointer' color="#fff" /><span>12</span>
-              </div>
-              <div className='rounded-lg flex items-center space-x-2'>
-                <MessageSquare className='h-5 w-5 cursor-pointer' color="#fff" /><span>12</span>
-              </div>
-              <div className='rounded-lg flex items-center space-x-2'>
-                <Share className='h-5 w-5 cursor-pointer' color="#fff" />
-              </div>
-            </div>
-          </article>
-        </React.Fragment>
-      ))}
+            </article>
+          </React.Fragment>
+        ))
+      )}
       <div className='m-10'></div>
     </>
   );
-};
+}
 
 export default UserPosts;
