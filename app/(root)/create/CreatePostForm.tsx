@@ -12,7 +12,6 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { postHandler } from '@/app/api/createApi/createPostHandler';
 
 const CreatePostForm = ({ user }: { user: string }) => {
     const { toast } = useToast()

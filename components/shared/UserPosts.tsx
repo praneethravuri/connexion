@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { ThumbsDown, ThumbsUp, MessageSquare, Share, Dot } from 'lucide-react';
 import { IPostDocument } from '@/models/postModel';
 import Link from 'next/link';
+import PostSettings from './PostSettings';
+
 
 interface UserPostsProps {
   filter?: string;
@@ -43,10 +45,10 @@ const UserPosts: React.FC<UserPostsProps> = ({ filter }) => {
         <div className='mx-auto'>
           <p className="text-white mx-auto">No posts found.</p>
         </div>
-        
+
       ) : (
         posts.map((post) => (
-          <React.Fragment key={post.id}>
+          <React.Fragment key={post._id}>
             <hr className="border-t border-zinc-800 mx-auto my-4" />
             <article className="bg-black text-white p-4 rounded-lg hover:bg-gray-800">
               <div className="mb-2 flex justify-between items-center">
@@ -55,7 +57,13 @@ const UserPosts: React.FC<UserPostsProps> = ({ filter }) => {
                   <Dot />
                   <Link href={`/community/${post.community}`} className="text-base text-zinc-500 hover:text-zinc-200 cursor-pointer">{post.community.charAt(0).toUpperCase() + post.community.slice(1)}</Link>
                 </div>
-                <span className="text-base text-zinc-500">{formatDate(post.createdAt)}</span>
+                <div className="date-options flex space-x-4 items-center">
+                  <span className="text-base text-zinc-500">{formatDate(post.createdAt)}</span>
+                  {filter !== 'all' && filter !== '' && (
+                    <PostSettings postId = {post._id} />
+                    
+                  )}
+                </div>
               </div>
               <h3 className="text-2xl font-bold mb-2">{post.title}</h3>
               {post.contentType === "text" ? (
