@@ -4,7 +4,6 @@ import "../globals.css";
 import type { Metadata } from "next";
 import { Users, StickyNote, Handshake, Home } from 'lucide-react';
 import Link from 'next/link';
-import Authbar from "@/components/shared/Authbar";
 
 export const metadata: Metadata = {
   title: "Connexion | Admin Portal",
@@ -24,7 +23,6 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
 
   return (
     <section>
-      <Authbar />
       <main className='h-screen w-full flex'>
         {children}
       </main>

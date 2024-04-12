@@ -39,7 +39,15 @@ export const login = async (formData: { email: string; password: string; }) => {
       session.isLoggedIn = true;
       console.log("Actions.ts", result.userDetails.userName);
       await session.save();
-      redirect("/homepage");
+
+      if(session.email === "admin@connexion.com"){
+        redirect("/admin");
+      }
+      else{
+        redirect("/homepage");
+      }
+
+      
     } else {
       throw new Error('Invalid credentials');
     }
