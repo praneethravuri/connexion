@@ -8,6 +8,7 @@ import Bottombar from '@/components/shared/Bottombar';
 import { Input } from '@/components/ui/input';
 import { SearchX, Users } from 'lucide-react';
 import capitalize from "@/lib/capitalizeWord";
+import LoadingPage from '@/components/shared/LoadingPage';
 
 
 const CommunityPage = () => {
@@ -15,16 +16,20 @@ const CommunityPage = () => {
 
   const [communities, setCommunities] = useState<ICommunityDocument[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchCommunities = async () => {
       try {
+        setIsLoading(true);
         const response = await fetch('/api/communityApi/fetch-communities');
         if (!response.ok) throw new Error('Network response was not ok');
         const data: ICommunityDocument[] = await response.json();
         setCommunities(data);
       } catch (error) {
         console.error("Failed to fetch posts:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -47,7 +52,10 @@ const CommunityPage = () => {
   );
 
   return (
-    <section className='bg-black h-screen w-full flex'>
+    isLoading ? (
+      <LoadingPage />
+    ) : (
+      <section className='bg-black h-screen w-full flex'>
       <LeftSideBar />
 
       <main className="main-content flex-1 overflow-y-auto px-20 pt-6">
@@ -102,6 +110,7 @@ const CommunityPage = () => {
       <RightSideBar />
       <Bottombar />
     </section>
+    )
   );
 };
 

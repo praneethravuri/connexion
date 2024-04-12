@@ -49,8 +49,6 @@ const AdminPage: React.FC = () => {
     fetchData();
   }, []);
 
-  console.log(JSON.stringify(users));
-
   const collectionMetrics = [
     { label: "Users", value: users.length, icon: Users },
     { label: "Posts", value: posts.length, icon: StickyNote },

@@ -6,15 +6,18 @@ import RightSideBar from '@/components/shared/RightSideBar';
 import { Users, SearchX } from 'lucide-react';
 import Bottombar from '@/components/shared/Bottombar';
 import UserPosts from '@/components/shared/UserPosts';
+import LoadingPage from '@/components/shared/LoadingPage';
 
 const Community = ({ params }: { params: { communityName: string } }) => {
 
 
   const [communityData, setCommunityData] = useState<ICommunityDocument | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchCommunityData = async () => {
       try {
+        setIsLoading(true);
         const response = await fetch(`/api/communityApi/fetch-selected-community?communityName=${params.communityName.toLowerCase()}`);
         const data = await response.json();
 
@@ -26,6 +29,8 @@ const Community = ({ params }: { params: { communityName: string } }) => {
         }
       } catch (err) {
         console.error('Error fetching community data:', err);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -33,7 +38,10 @@ const Community = ({ params }: { params: { communityName: string } }) => {
   }, [params.communityName]);
 
   return (
-    <section className='bg-black h-screen w-full flex'>
+    isLoading ? (
+      <LoadingPage />
+    ) : (
+      <section className='bg-black h-screen w-full flex'>
       <LeftSideBar />
       <main className="main-content flex-1 overflow-y-auto px-20 pt-6">
         {communityData ? (
@@ -74,6 +82,7 @@ const Community = ({ params }: { params: { communityName: string } }) => {
       <RightSideBar />
       <Bottombar />
     </section>
+    )
   );
 };
 
