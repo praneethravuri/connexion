@@ -6,16 +6,11 @@ import TableInfo from "./TableInfo";
 import { ICommunityDocument } from "@/models/communityModel";
 import { IPostDocument } from "@/models/postModel";
 import { IUserDocument } from "@/models/userModel";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import InsertData from "./InsertData";
 import Visualization from "./Visualization";
 import LogOutForm from "@/components/shared/LogOutForm";
-
+import LoadingPage from "@/components/shared/LoadingPage";
 
 const AdminPage: React.FC = () => {
   const [posts, setPosts] = useState<IPostDocument[]>([]);
@@ -64,87 +59,48 @@ const AdminPage: React.FC = () => {
   ];
 
   const communitiesColumn = [
-    {
-      accessorKey: "_id",
-      header: "Community Id",
-    },
-    {
-      accessorKey: "communityName",
-      header: "Community Name",
-    },
-    {
-      accessorKey: "communityMembers",
-      header: "Members",
-    },
-    {
-      accessorKey: "createdAt",
-      header: "Date Created",
-    },
+    { accessorKey: "_id", header: "Community Id" },
+    { accessorKey: "communityName", header: "Community Name" },
+    { accessorKey: "communityMembers", header: "Members" },
+    { accessorKey: "createdAt", header: "Date Created" },
   ];
 
   const postsColumn = [
-    {
-      accessorKey: "title",
-      header: "Post Title",
-    },
-    {
-      accessorKey: "community",
-      header: "Community",
-    },
-    {
-      accessorKey: "userName",
-      header: "User",
-    },
-    {
-      accessorKey: "createdAt",
-      header: "Date Created",
-    },
+    { accessorKey: "title", header: "Post Title" },
+    { accessorKey: "community", header: "Community" },
+    { accessorKey: "userName", header: "User" },
+    { accessorKey: "createdAt", header: "Date Created" },
   ];
 
   const userColumns = [
-    {
-      accessorKey: "userName",
-      header: "Username",
-    },
-    {
-      accessorKey: "email",
-      header: "Email",
-    },
-    {
-      accessorKey: "name",
-      header: "Name",
-    },
-    {
-      accessorKey: "createdAt",
-      header: "Data Created",
-    },
-
+    { accessorKey: "userName", header: "Username" },
+    { accessorKey: "email", header: "Email" },
+    { accessorKey: "name", header: "Name" },
+    { accessorKey: "createdAt", header: "Date Created" },
   ];
 
   return (
-    <section className="mx-auto">
-      <main className="mx-auto m-4 p-4">
+    isLoading ? (
+      <LoadingPage />
+    ) : (
+      <section className="mx-auto m-4 p-4">
         <div className="title m-4 p-4 flex justify-between">
           <p className="text-4xl font-semibold">Dashboard</p>
           <LogOutForm />
         </div>
 
         <div className="display-cards flex space-x-4 w-full p-4">
-          {isLoading ? (
-            <p>Loading...</p>
-          ) : (
-            collectionMetrics.map(({ label, value, icon: Icon }) => (
-              <Card key={label} className="w-72">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-lg font-semibold">{value}</CardTitle>
-                  <Icon size={24} color="#fff" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">{label}</div>
-                </CardContent>
-              </Card>
-            ))
-          )}
+          {collectionMetrics.map(({ label, value, icon: Icon }) => (
+            <Card key={label} className="w-72">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-lg font-semibold">{value}</CardTitle>
+                <Icon size={24} color="#fff" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold">{label}</div>
+              </CardContent>
+            </Card>
+          ))}
         </div>
 
         <div className="data-table-tabs p-4">
@@ -157,7 +113,7 @@ const AdminPage: React.FC = () => {
               <TabsTrigger className="w-full" value="insertData">Insert Data</TabsTrigger>
             </TabsList>
             <TabsContent value="visualization">
-            <Visualization users={users} posts={posts} communities={communities} />
+              <Visualization users={users} posts={posts} communities={communities} />
             </TabsContent>
             <TabsContent value="users">
               <TableInfo data={users} columns={userColumns} title="User" />
@@ -173,9 +129,8 @@ const AdminPage: React.FC = () => {
             </TabsContent>
           </Tabs>
         </div>
-
-      </main>
-    </section>
+      </section>
+    )
   );
 };
 
