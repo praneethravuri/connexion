@@ -18,12 +18,24 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog";
+import Post, { IPostDocument } from '@/models/postModel';
+import { Input } from "@/components/ui/input";
+import { Textarea } from '@/components/ui/textarea';
 
-const PostSettings = ({ postId }: { postId: string }) => {
+
+const PostSettings = ({ post }: { post: IPostDocument }) => {
     const { toast } = useToast();
     const deletePost = async () => {
         try {
-            const response = await fetch(`/api/delete-post?postId=${postId}`, {
+            const response = await fetch(`/api/delete-post?postId=${post._id}`, {
                 method: 'DELETE',
             });
 
@@ -54,14 +66,51 @@ const PostSettings = ({ postId }: { postId: string }) => {
                     </PopoverTrigger>
                     <PopoverContent>
                         <div className="p-2 flex flex-col">
-                            <div className="edit-button">
-                                <Button
-                                    className='w-full'
-                                    variant="ghost"
-                                    onClick={() => console.log(`Editing post ${postId}`)}
-                                >
-                                    Edit
-                                </Button>
+                            <div className="edit-button space-y-2 mb-1">
+                                <Dialog>
+                                    <DialogTrigger className='bg-accent w-full p-1 rounded-lg text-black'>Edit</DialogTrigger>
+                                    <DialogContent>
+                                        <DialogHeader>
+                                            <DialogTitle>Edit your post</DialogTitle>
+                                            <DialogDescription>
+                                                <DialogDescription>
+                                                    <form className='pt-5 w-full space-y-5'>
+                                                        <div>
+                                                            <Input
+                                                                className='bg-neutral-950'
+                                                                type="text"
+                                                                id="title"
+                                                                placeholder='Title'
+                                                                name='title'
+                                                            />
+                                                        </div>
+                                                        <div className="image-url-input">
+                                                            <Input
+                                                                className='bg-neutral-950'
+                                                                type="text"
+                                                                id="imageUrl"
+                                                                placeholder="Enter Image URL"
+                                                            />
+                                                        </div>
+
+                                                        <div className="flex items-center justify-center gap-2">
+                                                            <div className="flex-1 h-0.5 bg-zinc-800"></div>
+                                                            <p className="px-2 text-zinc-800">Or</p>
+                                                            <div className="flex-1 h-0.5 bg-zinc-800"></div>
+                                                        </div>
+                                                        <div className="text-area-input">
+                                                            <Textarea
+                                                                className='bg-neutral-950'
+                                                                placeholder="Enter Text"
+                                                            />
+                                                        </div>
+                                                    </form>
+                                                </DialogDescription>
+                                            </DialogDescription>
+                                        </DialogHeader>
+                                    </DialogContent>
+                                </Dialog>
+
                             </div>
                             <div className="delete-button">
                                 <AlertDialog>

@@ -13,6 +13,7 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs";
 import InsertData from "./InsertData";
+import Visualization from "./Visualization";
 
 
 const AdminPage: React.FC = () => {
@@ -51,6 +52,8 @@ const AdminPage: React.FC = () => {
 
     fetchData();
   }, []);
+
+  console.log(JSON.stringify(users));
 
   const collectionMetrics = [
     { label: "Users", value: users.length, icon: Users },
@@ -145,11 +148,15 @@ const AdminPage: React.FC = () => {
         <div className="data-table-tabs p-4">
           <Tabs defaultValue="users">
             <TabsList className="w-1/2 flex">
+              <TabsTrigger className="w-full" value="visualization">Visualization</TabsTrigger>
               <TabsTrigger className="w-full" value="users">Users</TabsTrigger>
               <TabsTrigger className="w-full" value="posts">Posts</TabsTrigger>
               <TabsTrigger className="w-full" value="communities">Communities</TabsTrigger>
               <TabsTrigger className="w-full" value="insertData">Insert Data</TabsTrigger>
             </TabsList>
+            <TabsContent value="visualization">
+            <Visualization users={users} posts={posts} communities={communities} />
+            </TabsContent>
             <TabsContent value="users">
               <TableInfo data={users} columns={userColumns} title="User" />
             </TabsContent>

@@ -7,6 +7,7 @@ import Link from 'next/link';
 import Bottombar from '@/components/shared/Bottombar';
 import { Input } from '@/components/ui/input';
 import { SearchX, Users } from 'lucide-react';
+import capitalize from "@/lib/capitalizeWord";
 
 
 const CommunityPage = () => {
@@ -73,7 +74,7 @@ const CommunityPage = () => {
                         <img src={community.communityImage} alt={community.communityName} className=" w-full h-full object-cover" />
                       </div>
                       <div className="ml-8">
-                        <p className='text-2xl font-semibold'>{community.communityName.charAt(0).toUpperCase() + community.communityName.slice(1)}</p>
+                        <p className='text-2xl font-semibold'>{capitalize(community.communityName)}</p>
                         <span className='flex space-x-1'>
                           <p className='text-base font-semibold text-gray-400'>{community.communityMembers}</p>
                           <Users />

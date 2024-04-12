@@ -60,7 +60,7 @@ const UserPosts: React.FC<UserPostsProps> = ({ filter }) => {
                 <div className="date-options flex space-x-4 items-center">
                   <span className="text-base text-zinc-500">{formatDate(post.createdAt)}</span>
                   {filter !== 'all' && filter !== '' && (
-                    <PostSettings postId = {post._id} />
+                    <PostSettings post = {post} />
                     
                   )}
                 </div>
