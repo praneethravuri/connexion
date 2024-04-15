@@ -32,7 +32,7 @@ const AccountSettings: React.FC<DisplayProfileProps> = ({ userDetails }) => {
     e.preventDefault();
 
     try {
-      const response = await fetch('/api/update-user', {
+      const response = await fetch('/api/profile-api/update', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

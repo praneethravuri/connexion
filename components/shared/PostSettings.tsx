@@ -35,7 +35,7 @@ const PostSettings = ({ post }: { post: IPostDocument }) => {
     const { toast } = useToast();
     const deletePost = async () => {
         try {
-            const response = await fetch(`/api/delete-post?postId=${post._id}`, {
+            const response = await fetch(`/api/post-api/delete?postId=${post._id}`, {
                 method: 'DELETE',
             });
 

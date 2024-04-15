@@ -4,9 +4,9 @@ import { getIronSession } from "iron-session"
 import { sessionOptions, SessionData, defaultSession } from "./lib"
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation";
-import { loginHandler } from "@/app/api/authApi/loginApi/loginHandler";
-import { signUpHandler } from "@/app/api/authApi/signApi/signUpHandler";
-import { deleteHandler } from "@/app/api/authApi/deleteApi/deleteHandler";
+import { loginHandler } from "@/app/api/auth-api/login-api/loginHandler";
+import { signUpHandler } from "@/app/api/auth-api/signup-api/signUpHandler";
+import { deleteHandler } from "@/app/api/auth-api/delete-user-api/deleteHandler";
 
 export const getSession = async () => {
   const session = await getIronSession<SessionData>(cookies(), sessionOptions)
@@ -40,14 +40,14 @@ export const login = async (formData: { email: string; password: string; }) => {
       console.log("Actions.ts", result.userDetails.userName);
       await session.save();
 
-      if(session.email === "admin@connexion.com"){
+      if (session.email === "admin@connexion.com") {
         redirect("/admin");
       }
-      else{
+      else {
         redirect("/homepage");
       }
 
-      
+
     } else {
       throw new Error('Invalid credentials');
     }

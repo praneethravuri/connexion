@@ -18,7 +18,7 @@ const Community = ({ params }: { params: { communityName: string } }) => {
     const fetchCommunityData = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch(`/api/communityApi/fetch-selected-community?communityName=${params.communityName.toLowerCase()}`);
+        const response = await fetch(`/api/community-api/fetch-selected?communityName=${params.communityName.toLowerCase()}`);
         const data = await response.json();
 
         if (response.ok) {

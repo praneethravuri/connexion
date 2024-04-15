@@ -22,7 +22,7 @@ const CreateCommunityForm = () => {
     try {
       if (newCommunityData.communityName && newCommunityData.communityBio && newCommunityData.communityImage) {
 
-        const response = await fetch("api/communityApi/create-community", {
+        const response = await fetch("api/community-api/create", {
           method: "POST",
           headers: {
             'Content-Type': 'application/json',

@@ -22,7 +22,7 @@ const CommunityPage = () => {
     const fetchCommunities = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch('/api/communityApi/fetch-communities');
+        const response = await fetch('/api/community-api/fetch');
         if (!response.ok) throw new Error('Network response was not ok');
         const data: ICommunityDocument[] = await response.json();
         setCommunities(data);

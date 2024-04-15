@@ -23,8 +23,8 @@ const AdminPage: React.FC = () => {
       try {
         setIsLoading(true);
         const [postsResponse, communitiesResponse, usersResponse] = await Promise.all([
-          fetch("/api/fetch-posts?filter=all"),
-          fetch("/api/communityApi/fetch-communities"),
+          fetch("/api/post-api/fetch?filter=all"),
+          fetch("/api/community-api/fetch"),
           fetch("/api/fetch-users"),
         ]);
 

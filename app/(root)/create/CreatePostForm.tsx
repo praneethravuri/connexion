@@ -29,7 +29,7 @@ const CreatePostForm = ({ user }: { user: string }) => {
     useEffect(() => {
         const fetchCommunities = async () => {
             try {
-                const response = await fetch('/api/communityApi/fetch-communities');
+                const response = await fetch('/api/community-api/fetch');
                 if (!response.ok) throw new Error('Network response was not ok');
                 const data: ICommunityDocument[] = await response.json();
                 setCommunities(data);
@@ -121,7 +121,7 @@ const CreatePostForm = ({ user }: { user: string }) => {
                     postData: updatedPostData
                 };
 
-                const response = await fetch("api/create-post", {
+                const response = await fetch("api/post-api/create", {
                     method: "POST",
                     headers : {
                         "Content-Type" : "application/json",
