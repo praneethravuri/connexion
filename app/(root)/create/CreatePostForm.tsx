@@ -12,6 +12,8 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import getRandomImageURL from '@/utils/getRandomImageURL';
+import capitalize from '@/utils/capitalizeWord';
 
 const CreatePostForm = ({ user }: { user: string }) => {
     const { toast } = useToast()
@@ -50,13 +52,8 @@ const CreatePostForm = ({ user }: { user: string }) => {
     const handleSelectCommunity = (communityName: string) => {
         setPostData((prevPostData) => ({
             ...prevPostData,
-            community: communityName
+            community: communityName.toLowerCase()
         }));
-    };
-
-    const getRandomImageUrl = () => {
-        const randomNumber = Math.floor(Math.random() * 1000) + 1;
-        return `https://picsum.photos/id/${randomNumber}/2000/800`;
     };
 
     const handlePostSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -97,7 +94,7 @@ const CreatePostForm = ({ user }: { user: string }) => {
                         ...updatedPostData,
                         contentType: 'image',
                         contentText: '',
-                        contentImageURL: getRandomImageUrl()
+                        contentImageURL: getRandomImageURL()
                     };
                 } else if (!postData.contentImageURL && postData.contentText) {
                     // Case 2: Text area filled, image URL empty
@@ -112,7 +109,7 @@ const CreatePostForm = ({ user }: { user: string }) => {
                     updatedPostData = {
                         ...updatedPostData,
                         contentType: 'mix',
-                        contentImageURL: getRandomImageUrl(),
+                        contentImageURL: getRandomImageURL(),
                         contentText: postData.contentText
                     };
                 }
@@ -133,7 +130,9 @@ const CreatePostForm = ({ user }: { user: string }) => {
                     throw new Error("Failed to create post");
                   }
 
-                if (response.message === "Post Created") {
+                  const data = await response.json();
+
+                if (data.message === "Post Created") {
                     setPostData({
                         title: "",
                         community: "Choose a community",
@@ -167,7 +166,7 @@ const CreatePostForm = ({ user }: { user: string }) => {
                 )}
                 <DropdownMenu>
                     <DropdownMenuTrigger className='bg-neutral-900 space-x-10 pl-2 py-3 pr-3 rounded-lg flex justify-between items-center'>
-                        <span>{postData.community}</span>
+                        <span>{capitalize(postData.community)}</span>
                         <span><ChevronDown color='#fff' /></span>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent className='bg-neutral-900 w-full'>
@@ -178,7 +177,7 @@ const CreatePostForm = ({ user }: { user: string }) => {
                                 onSelect={() => handleSelectCommunity(community.communityName)}
 
                             >
-                                {community.communityName}
+                                {capitalize(community.communityName)}
                             </DropdownMenuItem>
                         ))}
                     </DropdownMenuContent>

@@ -7,6 +7,7 @@ import { Users, SearchX } from 'lucide-react';
 import Bottombar from '@/components/shared/static/Bottombar';
 import UserPosts from '@/components/shared/UserPosts';
 import LoadingPage from '@/components/shared/static/LoadingPage';
+import capitalize from '@/utils/capitalizeWord';
 
 const Community = ({ params }: { params: { communityName: string } }) => {
 
@@ -52,7 +53,7 @@ const Community = ({ params }: { params: { communityName: string } }) => {
                 </div>
                 <div className='community-details pt-3'>
                   <div className="community-heading flex justify-between items-center">
-                    <p className='text-4xl font-semibold'>{communityData.communityName.charAt(0).toUpperCase() + communityData.communityName.slice(1)}</p>
+                    <p className='text-4xl font-semibold'>{capitalize(communityData.communityName)}</p>
                     <span className='flex space-x-1'>
                       <p className='text-xl font-semibold text-gray-400'>{communityData.communityMembers}</p>
                       <Users />
