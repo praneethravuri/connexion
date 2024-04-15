@@ -10,13 +10,15 @@ import {
 } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import { generateFakeUsers } from "@/utils/generate-data/generateFakeUsers";
+import { generateFakePosts } from '@/utils/generate-data/generateFakePosts';
 import User, { IUser } from '@/models/userModel';
-import { signUpHandler } from '@/app/api/auth-api/signup-api/signUpHandler';
+import Post, {IPost} from '@/models/postModel';
 
 
 const InsertData = () => {
 
     const [fakeUsers, setFakeUsers] = useState<IUser[]>([]);
+    const [fakePosts, setFakePosts] = useState<IPost[]>([]);
 
     const handleInsertUsers = async () => {
         try {
@@ -47,6 +49,33 @@ const InsertData = () => {
         }
     };
 
+    const handleInsertPosts = async () => {
+        try {
+            // Generate fake posts data
+            const fakePosts = await generateFakePosts(); // Await the generation of fake posts
+
+            // Use fetch API to send a POST request to your server
+            const response = await fetch('/api/admin-api/insert-posts', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(fakePosts),
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                console.log('Posts inserted successfully:', result);
+                setFakePosts(fakePosts); // Update the state with the generated fake posts
+            } else {
+                console.error('Error inserting posts:', result.message);
+            }
+        } catch (err) {
+            console.error('Error inserting fake posts data:', err);
+        }
+    };
+
 
     return (
         <section className='flex w-full justify-between'>
@@ -65,7 +94,7 @@ const InsertData = () => {
                     <CardDescription>Insert fake data in the posts collection</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <Button variant="ghost">Insert Data</Button>
+                    <Button variant="ghost" onClick={handleInsertPosts}>Insert Data</Button>
                 </CardContent>
             </Card>
             <Card className='w-full m-5'>
