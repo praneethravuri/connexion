@@ -21,7 +21,6 @@ const CreatePostForm = ({ user }: { user: string }) => {
         title: "",
         community: "Choose a community",
         userName: user,
-        contentType: "",
         contentText: "",
         contentImageURL: ""
     });
@@ -88,30 +87,29 @@ const CreatePostForm = ({ user }: { user: string }) => {
 
 
                 let updatedPostData = { ...postData };
-                if (postData.contentImageURL && !postData.contentText) {
-                    // Case 1: Image URL filled, text area empty
+
+                if(postData.contentImageURL && postData.contentText){
                     updatedPostData = {
                         ...updatedPostData,
-                        contentType: 'image',
-                        contentText: '',
+                        contentText: postData.contentText,
                         contentImageURL: getRandomImageURL()
-                    };
-                } else if (!postData.contentImageURL && postData.contentText) {
-                    // Case 2: Text area filled, image URL empty
+                    }
+                }
+
+                else if(postData.contentImageURL && !postData.contentText){
                     updatedPostData = {
                         ...updatedPostData,
-                        contentType: 'text',
-                        contentImageURL: '',
-                        contentText: postData.contentText
-                    };
-                } else if (postData.contentImageURL && postData.contentText) {
-                    // Case 3: Both image URL and text area filled
+                        contentText : "",
+                        contentImageURL: getRandomImageURL()
+                    }
+                }
+
+                else if(!postData.contentImageURL && postData.contentText){
                     updatedPostData = {
                         ...updatedPostData,
-                        contentType: 'mix',
-                        contentImageURL: getRandomImageURL(),
-                        contentText: postData.contentText
-                    };
+                        contentText : postData.contentText,
+                        contentImageURL: ""
+                    }
                 }
 
                 const requestData = {
@@ -136,8 +134,7 @@ const CreatePostForm = ({ user }: { user: string }) => {
                     setPostData({
                         title: "",
                         community: "Choose a community",
-                        userName: "montes",
-                        contentType: "",
+                        userName: user,
                         contentImageURL: "",
                         contentText: ""
                     });

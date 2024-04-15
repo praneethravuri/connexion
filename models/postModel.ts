@@ -4,7 +4,6 @@ export interface IPost {
     title: string;
     community: string;
     userName: string;
-    contentType: string;
     contentText?:string;
     contentImageURL?:string;
 }
@@ -24,10 +23,6 @@ const postSchema = new mongoose.Schema<IPostDocument>({
         required: true
     },
     userName: {
-        type: String,
-        required: true
-    },
-    contentType : {
         type: String,
         required: true
     },

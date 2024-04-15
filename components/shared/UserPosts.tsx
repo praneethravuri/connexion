@@ -55,27 +55,22 @@ const UserPosts: React.FC<UserPostsProps> = ({ filter }) => {
                 <div className='flex'>
                   <Link href='/' className="text-base text-zinc-500 hover:text-zinc-200 cursor-pointer">{post.userName}</Link>
                   <Dot />
-                  <Link href={`/community/${post.community}`} className="text-base text-zinc-500 hover:text-zinc-200 cursor-pointer">{post.community.charAt(0).toUpperCase() + post.community.slice(1)}</Link>
+                  <Link href={`/community/${post.community}`} className="text-base text-zinc-500 hover:text-zinc-200 cursor-pointer">
+                    {post.community.charAt(0).toUpperCase() + post.community.slice(1)}
+                  </Link>
                 </div>
                 <div className="date-options flex space-x-4 items-center">
                   <span className="text-base text-zinc-500">{formatDate(post.createdAt)}</span>
-                  {filter !== 'all' && filter !== '' && (
-                    <PostSettings post = {post} />
-                    
-                  )}
+                  {filter !== 'all' && filter !== '' && <PostSettings post={post} />}
                 </div>
               </div>
               <h3 className="text-2xl font-bold mb-2">{post.title}</h3>
-              {post.contentType === "text" ? (
-                <p>{post.contentText}</p>
-              ) : post.contentType === "image" ? (
-                <img src={post.contentImageURL} alt={post.title} width={1000} height={400} className="max-w-full h-auto rounded-lg" />
-              ) : post.contentType === "mix" ? (
-                <>
-                  <img src={post.contentImageURL} alt={post.title} width={1000} height={400} className="max-w-full h-auto rounded-lg" />
-                  <p className='mt-3'>{post.contentText}</p>
-                </>
-              ) : null}
+              {post.contentImageURL && (
+                <img src={post.contentImageURL} alt={post.title} className="max-w-full h-auto rounded-lg" />
+              )}
+              {post.contentText && (
+                <p className='mt-3'>{post.contentText}</p>
+              )}
               <div className="buttons flex space-x-4 mt-3">
                 <div className='rounded-lg flex items-center space-x-2'>
                   <ThumbsUp className='h-5 w-5 cursor-pointer' color="#fff" /><span>12</span>
