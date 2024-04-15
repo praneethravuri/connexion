@@ -1,7 +1,7 @@
 import React from 'react';
-import LeftSideBar from '@/components/shared/LeftSideBar';
-import RightSideBar from '@/components/shared/RightSideBar';
-import Bottombar from '@/components/shared/Bottombar';
+import LeftSideBar from '@/components/shared/static/LeftSideBar';
+import RightSideBar from '@/components/shared/static/RightSideBar';
+import Bottombar from '@/components/shared/static/Bottombar';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CreatePostForm from './CreatePostForm';
 import CreateCommunityForm from './CreateCommunityForm';
@@ -31,7 +31,7 @@ const CreateContent = async () => {
             <TabsTrigger value="create-community">Create Community</TabsTrigger>
           </TabsList>
           <TabsContent value="create-post">
-            <CreatePostForm user = {userName} />
+            <CreatePostForm user={userName} />
           </TabsContent>
           <TabsContent value="create-community">
             <CreateCommunityForm />

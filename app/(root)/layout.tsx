@@ -2,7 +2,7 @@
 import { ReactNode } from "react";
 import "../globals.css";
 import type { Metadata } from "next";
-import NavBar from '@/components/shared/NavBar'
+import NavBar from '@/components/shared/static/NavBar'
 import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {

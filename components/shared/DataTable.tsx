@@ -8,7 +8,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Button } from '../ui/button';
 
 type DataTableProps = {
   columns: {
@@ -16,8 +15,6 @@ type DataTableProps = {
     header: string;
   }[];
   data: any[];
-  // onEdit: (item: any) => void;
-  // onDelete: (item: any) => void;
 };
 
 const formatDate = (dateInput: Date | string) => {

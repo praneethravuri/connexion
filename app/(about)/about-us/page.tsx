@@ -1,5 +1,5 @@
 import React from 'react'
-import Authbar from '@/components/shared/Authbar'
+import Authbar from '@/components/shared/static/Authbar'
 
 const About = () => {
     return (

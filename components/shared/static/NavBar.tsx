@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Home, Handshake, User, BadgePlus, LogOut } from 'lucide-react';
 import Logo from './Logo';
-import LogOutForm from './LogOutForm';
+import LogOutForm from '../LogOutForm';
 import { getSession } from '@/lib/actions';
 
 const navItems = [

@@ -1,7 +1,7 @@
 import React from 'react';
-import LeftSideBar from '@/components/shared/LeftSideBar';
-import RightSideBar from '@/components/shared/RightSideBar';
-import Bottombar from '@/components/shared/Bottombar';
+import LeftSideBar from '@/components/shared/static/LeftSideBar';
+import RightSideBar from '@/components/shared/static/RightSideBar';
+import Bottombar from '@/components/shared/static/Bottombar';
 import UserPosts from '@/components/shared/UserPosts';
 import { getSession } from '@/lib/actions';
 import { redirect } from 'next/navigation';

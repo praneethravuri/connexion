@@ -9,7 +9,7 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
-import { generateFakeUsers } from "@/lib/generate-data/generateFakeUsers";
+import { generateFakeUsers } from "@/utils/generate-data/generateFakeUsers";
 import User, { IUser } from '@/models/userModel';
 import { signUpHandler } from '@/app/api/auth-api/signup-api/signUpHandler';
 

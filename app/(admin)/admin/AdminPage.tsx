@@ -10,7 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import InsertData from "./InsertData";
 import Visualization from "./Visualization";
 import LogOutForm from "@/components/shared/LogOutForm";
-import LoadingPage from "@/components/shared/LoadingPage";
+import LoadingPage from "@/components/shared/static/LoadingPage";
 
 const AdminPage: React.FC = () => {
   const [posts, setPosts] = useState<IPostDocument[]>([]);

@@ -1,6 +1,6 @@
 
 import { ReactNode } from "react";
-import Authbar from "@/components/shared/Authbar";
+import Authbar from "@/components/shared/static/Authbar";
 
 export default function AuthLayout({ children, title, subtitle, errorMessage }: { children: ReactNode, title: string, subtitle: string, errorMessage?: string }) {
   return (

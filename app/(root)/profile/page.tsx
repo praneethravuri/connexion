@@ -1,5 +1,5 @@
 import React from 'react';
-import LeftSideBar from '@/components/shared/LeftSideBar';
+import LeftSideBar from '@/components/shared/static/LeftSideBar';
 import { getSession } from '@/lib/actions';
 import { redirect } from 'next/navigation';
 import {
@@ -11,7 +11,7 @@ import {
 import DisplayProfile from './DisplayProfile';
 import AccountSettings from './AccountSettings';
 import UserActivity from './UserActivity';
-import RightSideBar from '@/components/shared/RightSideBar';
+import RightSideBar from '@/components/shared/static/RightSideBar';
 
 
 
@@ -28,7 +28,7 @@ const Profile = async () => {
     email: session.email,
     phoneNumber: session.phoneNumber,
     username: session.userName,
-    password:session.password,
+    password: session.password,
   };
 
   console.log("User Details main: ", userDetails);
@@ -50,10 +50,10 @@ const Profile = async () => {
                 <TabsTrigger className='w-full' value="activity">Activity</TabsTrigger>
               </TabsList>
               <TabsContent value="profile">
-                <DisplayProfile userDetails = {userDetails} />
+                <DisplayProfile userDetails={userDetails} />
               </TabsContent>
               <TabsContent value="account">
-                <AccountSettings userDetails = {userDetails} />
+                <AccountSettings userDetails={userDetails} />
               </TabsContent>
               <TabsContent value="activity">
                 <UserActivity />
