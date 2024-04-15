@@ -13,12 +13,14 @@ import { generateFakeUsers } from "@/utils/generate-data/generateFakeUsers";
 import { generateFakePosts } from '@/utils/generate-data/generateFakePosts';
 import User, { IUser } from '@/models/userModel';
 import Post, {IPost} from '@/models/postModel';
+import Community, {ICommunity} from '@/models/communityModel';
 
 
 const InsertData = () => {
 
     const [fakeUsers, setFakeUsers] = useState<IUser[]>([]);
     const [fakePosts, setFakePosts] = useState<IPost[]>([]);
+    const [fakeCommunities, setFakeCommunities] = useState<ICommunity[]>([]);
 
     const handleInsertUsers = async () => {
         try {
@@ -51,23 +53,18 @@ const InsertData = () => {
 
     const handleInsertPosts = async () => {
         try {
-            // Generate fake posts data
-            const fakePosts = await generateFakePosts(); // Await the generation of fake posts
-
-            // Use fetch API to send a POST request to your server
             const response = await fetch('/api/admin-api/insert-posts', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(fakePosts),
             });
-
+    
             const result = await response.json();
-
+    
             if (response.ok) {
                 console.log('Posts inserted successfully:', result);
-                setFakePosts(fakePosts); // Update the state with the generated fake posts
+                setFakePosts(result.postDetails); // Update the state with the inserted fake posts
             } else {
                 console.error('Error inserting posts:', result.message);
             }
@@ -76,6 +73,27 @@ const InsertData = () => {
         }
     };
 
+    const handleInsertCommunities = async () => {
+        try {
+            const response = await fetch('/api/admin-api/insert-communities', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+    
+            const result = await response.json();
+    
+            if (response.ok) {
+                console.log('Communities inserted successfully:', result);
+                setFakeCommunities(result.communityDetails); // Update the state with the inserted fake communities
+            } else {
+                console.error('Error inserting communities:', result.message);
+            }
+        } catch (err) {
+            console.error('Error inserting fake communities data:', err);
+        }
+    };
 
     return (
         <section className='flex w-full justify-between'>
@@ -103,7 +121,7 @@ const InsertData = () => {
                     <CardDescription>Insert fake data in the communities collection</CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <Button variant="ghost">Insert Data</Button>
+                    <Button variant="ghost" onClick={handleInsertCommunities}>Insert Data</Button>
                 </CardContent>
             </Card>
         </section>
