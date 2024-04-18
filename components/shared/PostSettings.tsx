@@ -1,4 +1,5 @@
-import React from 'react';
+"use client";
+import React, { useState } from 'react';
 import { Ellipsis } from 'lucide-react';
 import {
     Popover,
@@ -30,9 +31,17 @@ import Post, { IPostDocument } from '@/models/postModel';
 import { Input } from "@/components/ui/input";
 import { Textarea } from '@/components/ui/textarea';
 
-
 const PostSettings = ({ post }: { post: IPostDocument }) => {
     const { toast } = useToast();
+    const [postData, setPostData] = useState<Partial<IPostDocument>>({
+        id: post._id,
+        title: post.title,
+        contentImageURL: post.contentImageURL,
+        contentText: post.contentText,
+        community: post.community,
+        userName: post.userName
+    });
+
     const deletePost = async () => {
         try {
             const response = await fetch(`/api/post-api/delete?postId=${post._id}`, {
@@ -57,6 +66,41 @@ const PostSettings = ({ post }: { post: IPostDocument }) => {
         }
     };
 
+    const handleEditSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        try {
+            const requestData = {
+                postData: postData,
+            };
+
+            const response = await fetch(`/api/post-api/edit?postId=${post._id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(requestData),
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to edit post");
+            }
+
+            const data = await response.json();
+
+            if (data.message === "Post Updated") {
+                toast({
+                    title: "Success!",
+                    description: "Your post has been updated.",
+                });
+            } else {
+                console.log("Error updating the post");
+            }
+        } catch (error) {
+            console.error("Error: ", error);
+        }
+    };
+
     return (
         <section>
             <div className="edit-delete-options hover:bg-neutral-900 p-1 rounded-lg">
@@ -74,21 +118,25 @@ const PostSettings = ({ post }: { post: IPostDocument }) => {
                                             <DialogTitle>Edit your post</DialogTitle>
                                             <DialogDescription>
                                                 <DialogDescription>
-                                                    <form className='pt-5 w-full space-y-5'>
+                                                    <form className="pt-5 w-full space-y-5" onSubmit={handleEditSubmit}>
                                                         <div>
                                                             <Input
-                                                                className='bg-neutral-950'
+                                                                className="bg-neutral-950"
                                                                 type="text"
                                                                 id="title"
-                                                                placeholder='Title'
-                                                                name='title'
+                                                                value={postData.title}
+                                                                onChange={(e) => setPostData((prevPostData) => ({ ...prevPostData, title: e.target.value }))}
+                                                                placeholder="Title"
+                                                                name="title"
                                                             />
                                                         </div>
                                                         <div className="image-url-input">
                                                             <Input
-                                                                className='bg-neutral-950'
+                                                                className="bg-neutral-950"
+                                                                value={postData.contentImageURL}
                                                                 type="text"
                                                                 id="imageUrl"
+                                                                onChange={(e) => setPostData((prevPostData) => ({ ...prevPostData, contentImageURL: e.target.value }))}
                                                                 placeholder="Enter Image URL"
                                                             />
                                                         </div>
@@ -100,10 +148,16 @@ const PostSettings = ({ post }: { post: IPostDocument }) => {
                                                         </div>
                                                         <div className="text-area-input">
                                                             <Textarea
-                                                                className='bg-neutral-950'
+                                                                className="bg-neutral-950"
+                                                                value={postData.contentText}
+                                                                rows={10}
+                                                                onChange={(e) => setPostData((prevPostData) => ({ ...prevPostData, contentText: e.target.value }))}
                                                                 placeholder="Enter Text"
                                                             />
                                                         </div>
+                                                        <Button variant="ghost" type="submit">
+                                                            Update Post
+                                                        </Button>
                                                     </form>
                                                 </DialogDescription>
                                             </DialogDescription>
