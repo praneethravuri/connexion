@@ -13,6 +13,7 @@ import LogOutForm from "@/components/shared/LogOutForm";
 import LoadingPage from "@/components/shared/static/LoadingPage";
 import UserEngagement from "./UserEngagement";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -23,7 +24,17 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
+} from "@/components/ui/alert-dialog";
+import { Input } from "@/components/ui/input";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+
 
 
 const AdminPage: React.FC = () => {
@@ -78,6 +89,38 @@ const AdminPage: React.FC = () => {
     }
   };
 
+  const [editCommunityData, setEditCommunityData] = useState<Partial<ICommunityDocument> | null>(null);
+
+  // Function to handle edit form submission
+  const handleEditCommunity = async (e: React.FormEvent<HTMLFormElement>, communityId: string) => {
+    e.preventDefault();  // Prevent default form submission behavior
+    if (!editCommunityData) return;
+    console.log("Edit community data: ", editCommunityData);
+    try {
+      const response = await fetch(`/api/community-api/edit?communityId=${communityId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ communityData: editCommunityData }),
+      });
+      
+
+      if (!response.ok) {
+        throw new Error('Failed to edit community');
+      }
+
+      const updatedCommunity = await response.json();
+      // Update local state to reflect the changes
+      setCommunities(prev => prev.map(c => c._id === communityId ? updatedCommunity : c));
+      setEditCommunityData(null);  // Clear the edit state
+      console.log('Community updated successfully');
+    } catch (error) {
+      console.error('Error updating community:', error);
+    }
+  };
+
+
 
   const collectionMetrics = [
     { label: "Users", value: users.length, icon: Users },
@@ -97,13 +140,30 @@ const AdminPage: React.FC = () => {
       renderCell: (item: ICommunityDocument) => (
         <>
           <div className="space-x-2">
-            <Button variant="ghost">Edit</Button>
-            {/* <Button
-            onClick={() => handleDeleteCommunity(item._id)}
-            variant="destructive"
-          >
-            Delete
-          </Button> */}
+            <Dialog>
+              <DialogTrigger>Edit</DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Edit Community</DialogTitle>
+                </DialogHeader>
+                <form className="space-y-4 p-4" onSubmit={(e) => handleEditCommunity(e, item._id)}>
+                  <Input
+                    value={editCommunityData?.communityName || ''}
+                    onChange={(e) => setEditCommunityData({ ...editCommunityData, communityName: e.target.value })}
+                    placeholder="Community Name"
+                    type="text"
+                  />
+                  <Textarea
+                    value={editCommunityData?.communityBio || ''}
+                    onChange={(e) => setEditCommunityData({ ...editCommunityData, communityBio: e.target.value })}
+                    placeholder="Bio"
+                  />
+                  <Button type="submit" variant="ghost">Update Community</Button>
+                </form>
+              </DialogContent>
+            </Dialog>
+
+
             <AlertDialog>
               <AlertDialogTrigger className="bg-destructive p-3 rounded-lg">Delete</AlertDialogTrigger>
               <AlertDialogContent>

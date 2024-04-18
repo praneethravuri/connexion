@@ -25,7 +25,7 @@ export async function DELETE(req: Request): Promise<Response> {
             return new Response('Community not found', { status: 404 });
         }
 
-        const deletedPosts = await Post.deleteMany({community: deletedCommunity.communityName});
+        const deletedPosts = await Post.deleteMany({ community: deletedCommunity.communityName });
 
         // Return success response
         return new Response('Community deleted successfully', { status: 200 });
