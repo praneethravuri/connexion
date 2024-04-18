@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, StickyNote, Handshake, HeartPulse } from "lucide-react";
+import { Users, StickyNote, Handshake, HeartPulse, User } from "lucide-react";
 import TableInfo from "./TableInfo";
 import { ICommunityDocument } from "@/models/communityModel";
 import { IPostDocument } from "@/models/postModel";
@@ -11,6 +11,7 @@ import InsertData from "./InsertData";
 import Visualization from "./Visualization";
 import LogOutForm from "@/components/shared/LogOutForm";
 import LoadingPage from "@/components/shared/static/LoadingPage";
+import UserEngagement from "./UserEngagement";
 
 const AdminPage: React.FC = () => {
   const [posts, setPosts] = useState<IPostDocument[]>([]);
@@ -109,6 +110,7 @@ const AdminPage: React.FC = () => {
               <TabsTrigger className="w-full" value="posts">Posts</TabsTrigger>
               <TabsTrigger className="w-full" value="communities">Communities</TabsTrigger>
               <TabsTrigger className="w-full" value="insertData">Insert Data</TabsTrigger>
+              <TabsTrigger className="w-full" value="userEngagement">User Engagement</TabsTrigger>
             </TabsList>
             <TabsContent value="visualization">
               <Visualization users={users} posts={posts} communities={communities} />
@@ -124,6 +126,9 @@ const AdminPage: React.FC = () => {
             </TabsContent>
             <TabsContent value="insertData">
               <InsertData />
+            </TabsContent>
+            <TabsContent value="userEngagement">
+              <UserEngagement users = {users} />
             </TabsContent>
           </Tabs>
         </div>
