@@ -50,6 +50,22 @@ const AdminPage: React.FC = () => {
     fetchData();
   }, []);
 
+  const handleDeleteCommunity = async (communityId: string) => {
+    try {
+      const response = await fetch(`/api/community-api/delete?communityId=${communityId}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error('Failed to delete the community');
+      }
+      // Remove the community from the local state to update UI immediately
+      setCommunities(prevCommunities => prevCommunities.filter(c => c._id !== communityId));
+    } catch (error) {
+      console.error("Error deleting community:", error);
+    }
+  };
+
+
   const collectionMetrics = [
     { label: "Users", value: users.length, icon: Users },
     { label: "Posts", value: posts.length, icon: StickyNote },
@@ -62,7 +78,24 @@ const AdminPage: React.FC = () => {
     { accessorKey: "communityName", header: "Community Name" },
     { accessorKey: "communityMembers", header: "Members" },
     { accessorKey: "createdAt", header: "Date Created" },
+    {
+      accessorKey: "actions",
+      header: "Actions",
+      renderCell: (item: ICommunityDocument) => (
+        <>
+          <button className="p-2 text-sm bg-blue-500 text-white rounded hover:bg-blue-600 mr-2">Edit</button>
+          <button
+            onClick={() => handleDeleteCommunity(item._id)}
+            className="p-2 text-sm bg-red-500 text-white rounded hover:bg-red-600"
+          >
+            Delete
+          </button>
+        </>
+      )
+    }
   ];
+
+
 
   const postsColumn = [
     { accessorKey: "title", header: "Post Title" },
@@ -128,7 +161,7 @@ const AdminPage: React.FC = () => {
               <InsertData />
             </TabsContent>
             <TabsContent value="userEngagement">
-              <UserEngagement users = {users} />
+              <UserEngagement users={users} />
             </TabsContent>
           </Tabs>
         </div>

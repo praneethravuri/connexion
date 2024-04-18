@@ -13,6 +13,7 @@ type DataTableProps = {
   columns: {
     accessorKey: string;
     header: string;
+    renderCell?: (item: any) => JSX.Element;
   }[];
   data: any[];
 };
@@ -29,14 +30,12 @@ const formatDate = (dateInput: Date | string) => {
 };
 
 const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
-  const extendedColumns = [...columns, { accessorKey: 'actions', header: 'Actions' }];
-
-    return (
+  return (
     <main className='rounded-lg border border-neutral-800 mt-3 mb-3'>
       <Table className="rounded-lg">
         <TableHeader>
           <TableRow className="hover:bg-neutral-800 border-b border-zinc-600">
-            {extendedColumns.map((column) => (
+            {columns.map((column) => (
               <TableHead className='text-accent' key={column.accessorKey}>{column.header}</TableHead>
             ))}
           </TableRow>
@@ -44,18 +43,9 @@ const DataTable: React.FC<DataTableProps> = ({ columns, data }) => {
         <TableBody>
           {data.map((item, index) => (
             <TableRow className='hover:bg-neutral-800 border-b border-zinc-600' key={index}>
-              {extendedColumns.map((column) => (
+              {columns.map((column) => (
                 <TableCell key={column.accessorKey}>
-                  {column.accessorKey === 'createdAt'
-                    ? formatDate(item[column.accessorKey])
-                    // : column.accessorKey === 'actions'
-                    // ? (
-                    //     <>
-                    //       <Button variant="destructive" onClick={() => onEdit(item)} className="mr-2">Edit</Button>
-                    //       <Button variant="ghost" onClick={() => onDelete(item)}>Delete</Button>
-                    //     </>
-                    //   )
-                    : item[column.accessorKey]}
+                  {column.renderCell ? column.renderCell(item) : item[column.accessorKey]}
                 </TableCell>
               ))}
             </TableRow>
