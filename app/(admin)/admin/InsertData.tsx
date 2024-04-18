@@ -12,8 +12,8 @@ import { Button } from '@/components/ui/button';
 import { generateFakeUsers } from "@/utils/generate-data/generateFakeUsers";
 import { generateFakePosts } from '@/utils/generate-data/generateFakePosts';
 import User, { IUser } from '@/models/userModel';
-import Post, {IPost} from '@/models/postModel';
-import Community, {ICommunity} from '@/models/communityModel';
+import Post, { IPost } from '@/models/postModel';
+import Community, { ICommunity } from '@/models/communityModel';
 
 
 const InsertData = () => {
@@ -59,9 +59,9 @@ const InsertData = () => {
                     'Content-Type': 'application/json',
                 },
             });
-    
+
             const result = await response.json();
-    
+
             if (response.ok) {
                 console.log('Posts inserted successfully:', result);
                 setFakePosts(result.postDetails); // Update the state with the inserted fake posts
@@ -81,9 +81,9 @@ const InsertData = () => {
                     'Content-Type': 'application/json',
                 },
             });
-    
+
             const result = await response.json();
-    
+
             if (response.ok) {
                 console.log('Communities inserted successfully:', result);
                 setFakeCommunities(result.communityDetails); // Update the state with the inserted fake communities
@@ -108,20 +108,20 @@ const InsertData = () => {
             </Card>
             <Card className='w-full m-5'>
                 <CardHeader>
-                    <CardTitle>Posts</CardTitle>
-                    <CardDescription>Insert fake data in the posts collection</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <Button variant="ghost" onClick={handleInsertPosts}>Insert Data</Button>
-                </CardContent>
-            </Card>
-            <Card className='w-full m-5'>
-                <CardHeader>
                     <CardTitle>Communities</CardTitle>
                     <CardDescription>Insert fake data in the communities collection</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <Button variant="ghost" onClick={handleInsertCommunities}>Insert Data</Button>
+                </CardContent>
+            </Card>
+            <Card className='w-full m-5'>
+                <CardHeader>
+                    <CardTitle>Posts</CardTitle>
+                    <CardDescription>Insert fake data in the posts collection</CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Button variant="ghost" onClick={handleInsertPosts}>Insert Data</Button>
                 </CardContent>
             </Card>
         </section>
