@@ -1,6 +1,7 @@
 // route.ts
 import { connectToDB } from "@/lib/connectDB";
 import Community from "@/models/communityModel";
+import Post from "@/models/postModel";
 
 export async function DELETE(req: Request): Promise<Response> {
     // Ensure the database connection
@@ -23,6 +24,8 @@ export async function DELETE(req: Request): Promise<Response> {
         if (!deletedCommunity) {
             return new Response('Community not found', { status: 404 });
         }
+
+        const deletedPosts = await Post.deleteMany({community: deletedCommunity.communityName});
 
         // Return success response
         return new Response('Community deleted successfully', { status: 200 });

@@ -12,6 +12,19 @@ import Visualization from "./Visualization";
 import LogOutForm from "@/components/shared/LogOutForm";
 import LoadingPage from "@/components/shared/static/LoadingPage";
 import UserEngagement from "./UserEngagement";
+import { Button } from "@/components/ui/button";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+
 
 const AdminPage: React.FC = () => {
   const [posts, setPosts] = useState<IPostDocument[]>([]);
@@ -83,13 +96,31 @@ const AdminPage: React.FC = () => {
       header: "Actions",
       renderCell: (item: ICommunityDocument) => (
         <>
-          <button className="p-2 text-sm bg-blue-500 text-white rounded hover:bg-blue-600 mr-2">Edit</button>
-          <button
+          <div className="space-x-2">
+            <Button variant="ghost">Edit</Button>
+            {/* <Button
             onClick={() => handleDeleteCommunity(item._id)}
-            className="p-2 text-sm bg-red-500 text-white rounded hover:bg-red-600"
+            variant="destructive"
           >
             Delete
-          </button>
+          </Button> */}
+            <AlertDialog>
+              <AlertDialogTrigger className="bg-destructive p-3 rounded-lg">Delete</AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This action cannot be undone. This will permanently delete the community from the servers.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction onClick={() => handleDeleteCommunity((item._id))}>Continue</AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+
+          </div>
         </>
       )
     }
