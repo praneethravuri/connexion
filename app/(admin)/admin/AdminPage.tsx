@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, StickyNote, Handshake, HeartPulse, User } from "lucide-react";
+import { Users, StickyNote, Handshake, HeartPulse } from "lucide-react";
 import TableInfo from "./TableInfo";
 import { ICommunityDocument } from "@/models/communityModel";
 import { IPostDocument } from "@/models/postModel";
@@ -29,11 +29,11 @@ import { Input } from "@/components/ui/input";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
+import { useToast } from "@/components/ui/use-toast";
 
 
 
@@ -74,6 +74,8 @@ const AdminPage: React.FC = () => {
     fetchData();
   }, []);
 
+  const { toast } = useToast();
+
   const handleDeleteCommunity = async (communityId: string) => {
     try {
       const response = await fetch(`/api/community-api/delete?communityId=${communityId}`, {
@@ -82,6 +84,22 @@ const AdminPage: React.FC = () => {
       if (!response.ok) {
         throw new Error('Failed to delete the community');
       }
+
+      const data = await response.json();
+
+      if (data.message === "Community Deleted Successfully") {
+        console.log("Here");
+        toast({
+          title: "Success!",
+          description: ""
+        });
+      } else {
+        toast({
+          title: "Internal Server Error",
+          description: data.message
+        });
+      }
+
       // Remove the community from the local state to update UI immediately
       setCommunities(prevCommunities => prevCommunities.filter(c => c._id !== communityId));
     } catch (error) {
@@ -104,7 +122,7 @@ const AdminPage: React.FC = () => {
         },
         body: JSON.stringify({ communityData: editCommunityData }),
       });
-      
+
 
       if (!response.ok) {
         throw new Error('Failed to edit community');
@@ -227,7 +245,7 @@ const AdminPage: React.FC = () => {
         </div>
 
         <div className="data-table-tabs p-4">
-          <Tabs defaultValue="users">
+          <Tabs defaultValue="visualization">
             <TabsList className="w-1/2 flex">
               <TabsTrigger className="w-full" value="visualization">Visualization</TabsTrigger>
               <TabsTrigger className="w-full" value="users">Users</TabsTrigger>

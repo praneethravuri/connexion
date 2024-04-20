@@ -13,7 +13,7 @@ export async function DELETE(req: Request): Promise<Response> {
 
     // Validate communityId presence
     if (!communityId) {
-        return new Response('Missing communityId', { status: 400 });
+        return new Response(JSON.stringify({ message: "Missing Community ID" }), { status: 400 });
     }
 
     try {
@@ -22,13 +22,13 @@ export async function DELETE(req: Request): Promise<Response> {
 
         // Check if the community was actually found and deleted
         if (!deletedCommunity) {
-            return new Response('Community not found', { status: 404 });
+            return new Response(JSON.stringify({ message: "Community Not Found" }), { status: 404 });
         }
 
         const deletedPosts = await Post.deleteMany({ community: deletedCommunity.communityName });
 
         // Return success response
-        return new Response('Community deleted successfully', { status: 200 });
+        return new Response(JSON.stringify({ message: "Community Deleted Successfully" }), { status: 200 });
     } catch (error) {
         // Log and return the error
         console.error('Error deleting community:', error);

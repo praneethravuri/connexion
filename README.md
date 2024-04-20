@@ -1,52 +1,58 @@
-## Getting Started
+# INFS 740 PROJECT
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Name: Sanjana Vatsavai
 
 
-# Functionalities
-### CRUD Operations
+### Project Installation
 
-Basic CRUD Operations for Each Collection
-Users Collection
+1. [Install Node (v20.11.1)](https://nodejs.org/en/download)
+2. Install Dependencies - ```npm install```
+3. Run the code in **http://localhost:3000/** - ```npm run dev```
 
-    View: Retrieve and display a list of all users, or a specific user's details.
+### Tech Stack
 
-    Insert: Add a new user to the collection, including details like name, email, and a list of communities they belong to.
+1. Frontend: React
+2. Backend: Next.js 14
+3. Database: MongoDB
+4. Development Dependencies: Tailwind CSS, Radix UI, Shad-cn, TypeScript
 
-    Update: Modify details of an existing user, such as updating their email address or the communities they're part of.
+### Collections
 
-    Delete: Remove a user from the database.
+1. Users
+2. Posts
+3. Communities
 
-Posts Collection
+### Basic Queries (CRUD Operations)
 
-    View: Display posts, with options to filter by user or community.
+1. Users:
+    * **View**: Retrieve and display a list of all users, or a specific user's details.
 
-    Insert: Allow users to create a new post, including title, content, associated community, and author.
+    * **Insert**: Add a new user to the collection, including details like name, email, and a list of communities they belong to.
 
-    Update: Enable editing of post content or its associated community.
+    * **Update**: Modify details of an existing user, such as updating their email address or the communities they're part of.
 
-    Delete: Provide the ability to delete a post.
+    * **Delete**: Remove a user from the database.
 
-Communities Collection
+2. Posts:
+    * **View**: Display posts, with options to filter by user or community.
 
-    View: Show a list of all communities or detailed view of a selected community, including a list of members and posts.
+    * **Insert**: Allow users to create a new post, including title, content, associated community, and author.
 
-    Insert: Add a new community with details like name, description, and members.
+    * **Update**: Enable editing of post content or its associated community.
 
-    Update: Update community details or membership.
+    * **Delete**: Delete the user's post from the database
+
+3. Communities:
+    * **View**: Show a list of all communities or detailed view of a selected community, including a list of members and posts.
+
+    * **Insert**: Add a new community with details like name, description, and members.
+
+    * **Update**: Update community details or membership.
     
-    Delete: Remove a community from the database.
+    * **Delete**: Remove a community from the database.
+
+
+
+
+
+
