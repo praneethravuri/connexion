@@ -34,6 +34,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useToast } from "@/components/ui/use-toast";
+import CommunityActivity from "./CommunityActivity";
 
 
 
@@ -246,13 +247,14 @@ const AdminPage: React.FC = () => {
 
         <div className="data-table-tabs p-4">
           <Tabs defaultValue="visualization">
-            <TabsList className="w-1/2 flex">
+            <TabsList className="w-full flex">
               <TabsTrigger className="w-full" value="visualization">Visualization</TabsTrigger>
               <TabsTrigger className="w-full" value="users">Users</TabsTrigger>
               <TabsTrigger className="w-full" value="posts">Posts</TabsTrigger>
               <TabsTrigger className="w-full" value="communities">Communities</TabsTrigger>
               <TabsTrigger className="w-full" value="insertData">Insert Data</TabsTrigger>
               <TabsTrigger className="w-full" value="userEngagement">User Engagement</TabsTrigger>
+              <TabsTrigger className="w-full" value="communityActivity">Community Activity</TabsTrigger>
             </TabsList>
             <TabsContent value="visualization">
               <Visualization users={users} posts={posts} communities={communities} />
@@ -271,6 +273,9 @@ const AdminPage: React.FC = () => {
             </TabsContent>
             <TabsContent value="userEngagement">
               <UserEngagement users={users} />
+            </TabsContent>
+            <TabsContent value="communityActivity">
+              <CommunityActivity communities={communities}/>
             </TabsContent>
           </Tabs>
         </div>
