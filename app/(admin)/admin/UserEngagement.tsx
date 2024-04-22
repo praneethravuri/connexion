@@ -43,14 +43,14 @@ const UserEngagement: React.FC<UserEngagementProps> = ({ users }) => {
     };
 
     return (
-        <section className='h-96 overflow-y-auto bg-neutral-900 text-white p-4 rounded-lg'>
-            <h1 className='text-2xl font-semibold'>User Engagement</h1>
+        <section className='h-96 overflow-y-auto text-white p-4 rounded-lg'>
+            <h1 className='text-xl font-semibold mt-5 mb-5'>User Engagement</h1>
 
             <div className="display-info flex space-x-4">
                 <div className="show-users border border-zinc-800 rounded-lg p-2 overflow-auto h-96 w-96">
                     {users.map((user) => (
                         <div
-                            className={`border-b border-zinc-800 rounded-lg p-2 cursor-pointer ${user._id === selectedUserId ? 'bg-gray-400' : ''
+                            className={`border-b border-zinc-800 rounded-lg p-2 cursor-pointer ${user._id === selectedUserId ? 'bg-neutral-900' : ''
                                 }`}
                             key={user._id}
                             onClick={() => handleUserClick(user._id, user.userName)}

@@ -24,8 +24,8 @@ const TableInfo = <T extends object>({ data, columns, title }: TableInfoProps<T>
   });
 
   return (
-    <div className="mt-5 communities-data-table h-96 overflow-y-auto bg-neutral-900 text-white p-4 rounded-lg w-full">
-      <p className="text-xl font-semibold mt-5">{title} Data</p>
+    <div className="mt-5 communities-data-table h-96 overflow-y-auto  text-white p-4 rounded-lg w-full">
+      <p className="text-xl font-semibold mt-5 mb-5">{title} Data</p>
       <Input
         type="text"
         placeholder="Search data"

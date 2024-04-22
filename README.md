@@ -66,19 +66,21 @@ Email: svatsava@gmu.edu
 
 ### Search Queries
 
-1.  Display all users, posts they made, and community details of the posts
+1.  User Engagement Overview: Displaying User Posts and Community Associations
 
-    In the admin page, under the user engagement tab, the admin has the ability to view a list of all users of the website. On clicking a user, all the posts made by that user are shown. Along with the posts, the details of the communities of which the posts are a part, are also shown.
+    In the admin section, under the user engagement tab, administrators can browse a comprehensive list of all website users. Upon selecting a user, the interface displays all posts created by that user. Furthermore, it reveals detailed information about the communities related to these posts.
 
-    This search query utilizes the posts, users, and the communities collections. First, all users are retrieved and shown in the form of a table. On clicking a particular user, all the posts made by that user are shown in the middle table. For each post, its community of which it is a part is added to a set. From this, we get a list of all communities the user is a part of, and the details of all those communities are shown in the last table.
+    This query integrates the posts, users, and communities collections effectively. Initially, all users are listed in a table format. When an admin clicks on a specific user, the system retrieves and displays all posts made by that user in a central table. The communities associated with each post are compiled into a set, enabling the system to gather and display details about all communities the user has interacted with. These community details are then shown in a concluding table, providing a holistic view of user engagement across different community spaces.
 
     <p align="center">
     <img src="./documentation-images/search_query_1.png" />
     </p>
 
-2. Display all the posts made by a user with the communities the posts are a part of
+2. Overview of Community Engagement Analytics on the Admin Dashboard
 
-    In the profile page of the user, under user activity, all the posts made by the user and the communities the posts are a part of are shown. This search query utilizes all three collections: posts, users, and communities. First, the user's details are retrieved, and using the posts collection and communities collection, all of the user's contributions are shown in the user activity section.
+    In the admin page, under the community activity tab, the admin can view a list of all communities registered on the website. By selecting a specific community, the admin can see all the posts associated with that community displayed. Alongside the posts, a statistical panel provides insights into the total number of posts made within the selected community and the number of unique contributors.
+
+    This search query leverages the communities, posts, and users collections. Initially, all communities are listed for selection. Upon selecting a community, the system fetches and displays all posts from that community. Concurrently, it calculates the total number of posts and identifies unique users who have contributed, effectively summarizing the engagement within the community. This information is organized into a visually structured layout with separate sections for community selection, post details, and statistical data, enhancing the admin's ability to monitor and analyze community interactions.
 
     <p align="center">
     <img src="./documentation-images/search_query_2.png" />
@@ -86,22 +88,19 @@ Email: svatsava@gmu.edu
 
 ### Visualization
 
-There are 3 visualizations for 3 communities. Each visualization shows the number of entries made to each collection in the past 30 days.
+There are three visualizations for three communities. Each visualization displays the number of entries made to each collection in the past 30 days.
 
-For the users collection, the visualization shows the number of users that signed up to the website in the last 30 days
-
+For the Users collection, the visualization shows the number of users that signed up on the website in the last 30 days:
 <p align="center">
 <img src="./documentation-images/v_users.png" />
 </p>
 
-For the posts collection, the visualization shows the total number of posts made in the last 30 days
-
+For the Posts collection, the visualization shows the total number of posts made in the last 30 days:
 <p align="center">
 <img src="./documentation-images/v_posts.png" />
 </p>
 
-For the communities collection, the visualization shows the number of communities created in the last 30 days
-
+For the Communities collection, the visualization shows the number of communities created in the last 30 days:
 <p align="center">
 <img src="./documentation-images/v_comm.png" />
 </p>
