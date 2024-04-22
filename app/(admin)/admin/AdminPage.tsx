@@ -252,9 +252,9 @@ const AdminPage: React.FC = () => {
               <TabsTrigger className="w-full" value="users">Users</TabsTrigger>
               <TabsTrigger className="w-full" value="posts">Posts</TabsTrigger>
               <TabsTrigger className="w-full" value="communities">Communities</TabsTrigger>
-              <TabsTrigger className="w-full" value="insertData">Insert Data</TabsTrigger>
               <TabsTrigger className="w-full" value="userEngagement">User Engagement</TabsTrigger>
               <TabsTrigger className="w-full" value="communityActivity">Community Activity</TabsTrigger>
+              <TabsTrigger className="w-full" value="insertData">Insert Data</TabsTrigger>
             </TabsList>
             <TabsContent value="visualization">
               <Visualization users={users} posts={posts} communities={communities} />
@@ -268,14 +268,14 @@ const AdminPage: React.FC = () => {
             <TabsContent value="communities">
               <TableInfo data={communities} columns={communitiesColumn} title="Communities" />
             </TabsContent>
-            <TabsContent value="insertData">
-              <InsertData />
-            </TabsContent>
             <TabsContent value="userEngagement">
               <UserEngagement users={users} />
             </TabsContent>
             <TabsContent value="communityActivity">
-              <CommunityActivity communities={communities}/>
+              <CommunityActivity communities={communities} />
+            </TabsContent>
+            <TabsContent value="insertData">
+              <InsertData />
             </TabsContent>
           </Tabs>
         </div>
