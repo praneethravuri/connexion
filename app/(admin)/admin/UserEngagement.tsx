@@ -43,7 +43,7 @@ const UserEngagement: React.FC<UserEngagementProps> = ({ users }) => {
     };
 
     return (
-        <section className='h-96 overflow-y-auto bg-neutral-900 text-white p-4 rounded-lg'>
+        <section className='h-96 overflow-y-auto text-white p-4 rounded-lg'>
             <h1 className='text-2xl font-semibold'>User Engagement</h1>
 
             <div className="display-info flex space-x-4">
