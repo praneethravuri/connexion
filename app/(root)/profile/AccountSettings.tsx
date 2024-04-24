@@ -74,7 +74,7 @@ const AccountSettings: React.FC<DisplayProfileProps> = ({ userDetails }) => {
         </div>
 
         <div>
-          <p className='text-xl font-semibold'>Profile</p>
+          <p className='text-xl font-semibold'>Username</p>
           <Input
             type="text"
             id="username"
