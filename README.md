@@ -1,11 +1,3 @@
-# INFS 740 PROJECT
-
-Name: Sanjana Vatsavai
-
-G-Number: G01371785
-
-Email: svatsava@gmu.edu
-
 ### Project Installation
 
 1. [Install Node (v20.11.1)](https://nodejs.org/en/download)
