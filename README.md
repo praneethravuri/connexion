@@ -10,6 +10,7 @@
     NODE_ENV = development
     ```
 4. Run the code in **http://localhost:3000/** - `npm run dev`
+5. You can use the credentials in ```credentials.json``` to access the application
 
 ### Tech Stack
 
